@@ -27,12 +27,7 @@
 
 <body >
 <br><br> 
- 
-    {{-- <div class="flex justify-center mt-2">
-        <div class="card-body text-center">            
-                        <img src="{{ asset('images/spsch.jpg') }}" alt="Image" class="img-thumbnail" width="450px" height="350px">                     
-        </div>
-    </div> --}}
+  
     <div class="container">
         <div class="flex justify-center mt-4">    
             
@@ -41,204 +36,21 @@
                     <img src="{{ asset('images/spsch.jpg') }}" alt="Image" class="img-thumbnail" width="600px" height="130px">
                     <img src="{{ asset('images/logo150.png') }}" alt="Image" class="img-thumbnail" width="135px" height="135px">
                 </div>
-                <div class="card-body">
-                    <form action="{{ route('authencode') }}" method="POST" id="insert_AuthencodeForm">
-                    @csrf
-
-                    <div class="row mt-3">
-                        <div class="col-md-2 text-end">
-                            <div class="mb-3">
-                                <label for="pid" class="form-label">เลขบัตรประชาชน :</label>                           
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="mb-3"> 
-                                <label for="pid" class="form-label" style="color: rgb(197, 8, 33)">{{ $collection1 }}</label>
-                                <input type="hidden" class="form-control" id="pid" name="pid" value="{{ $collection1 }}">
-                            </div>
-                        </div>
-                        <div class="col-md-2 text-end">
-                            <div class="mb-3">
-                                <label for="fname" class="form-label">ชื่อ-นามสกุล :</label>                           
-                            </div>
-                        </div>
-                        <div class="col-md-5">
-                            <div class="mb-3"> 
-                                <label for="fname" class="form-label" style="color: rgb(197, 8, 33)">{{ $collection2 }} {{ $collection3 }}</label>
-                                <input type="hidden" class="form-control" id="fname" value="{{ $collection2 }}">
-                                <input type="hidden" class="form-control" id="lname" value="{{ $collection3 }}">
-                            </div>
-                        </div>                    
-                    </div>
-                    <div class="row">
-                        <div class="col-md-2 text-end">
-                            <div class="mb-3">
-                                <label for="mainInscl" class="form-label">สิทธิหลัก :</label>                           
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="mb-3"> 
-                                <label for="mainInscl" class="form-label" style="color: rgb(197, 8, 33)">{{ $collection6 }}</label>
-                                <input type="hidden" class="form-control" id="mainInscl" value="{{ $collection6 }}">
-                            </div>
-                        </div>
-                        <div class="col-md-2 text-end">
-                            <div class="mb-3">
-                                <label for="subInscl" class="form-label">สิทธิ์ย่อย :</label>                           
-                            </div>
-                        </div>
-                        <div class="col-md-5">
-                            <div class="mb-3"> 
-                                <label for="subInscl" class="form-label" style="color: rgb(197, 8, 33)">{{ $collection7 }}</label>
-                                <input type="hidden" class="form-control" id="subInscl" value="{{ $collection7 }}"> 
-                            </div>
-                        </div>                                
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-2 text-end">
-                            <div class="mb-3">
-                                <label for="birthDate" class="form-label">วันเกิด :</label>                           
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="mb-3"> 
-                                <label for="birthDate" class="form-label" style="color: rgb(197, 8, 33)">{{ $collection4 }}</label>
-                                <input type="hidden" class="form-control" id="birthDate" value="{{ $collection4 }}">
-                            </div>
-                        </div>
-                        <div class="col-md-2 text-end">
-                            <div class="mb-3">
-                                <label for="checkDate" class="form-label">อายุ :</label>                           
-                            </div>
-                        </div>
-                        <div class="col-md-5">
-                            <div class="mb-3"> 
-                                <label for="checkDate" class="form-label" style="color: rgb(197, 8, 33)">{{ $collection8 }}</label>
-                                <input type="hidden" class="form-control" id="checkDate" value="{{ $collection8 }}"> 
-                            </div>
-                        </div>                                
-                    </div>
-                    <hr>
-                    <div class="row mt-3">
-                        <div class="col-md-2 text-end">
-                            <div class="mb-3">
-                                <label for="correlationId" class="form-label">correlationId :</label>                           
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="mb-3"> 
-                                <label for="correlationId" class="form-label" style="color: rgb(197, 8, 33)">{{ $collection10 }}</label>
-                                <input type="hidden" class="form-control" id="correlationId" name="correlationId" value="{{ $collection10 }}">
-                            </div>
-                        </div>  
-                        <div class="col-md-1 text-end">
-                            <div class="mb-3">
-                                <label for="transDate" class="form-label">transDate :</label>                           
-                            </div>
-                        </div>
-                        <div class="col-md-5">
-                            <div class="mb-3"> 
-                                <label for="transDate" class="form-label" style="color: rgb(197, 8, 33)">{{ $collection5 }}</label>
-                                <input type="hidden" class="form-control" id="transDate" value="{{ $collection5 }}">
-                            </div>
-                        </div>                                                     
-                    </div>
-                    <div class="row">
-                        <div class="col-md-2 text-end">
-                            <div class="mb-3"> 
-                                <label for="claimType" class="form-label">เลือกประเภทเข้ารับบริการ :</label>   
-                            </div>
-                        </div>
-                        <div class="col-md-10 ">
-                            <div class="mb-3"> 
-                                <input class="form-check-input me-3" type="radio" name="claimType" id="claimType" value="PG0060001" checked> 
-                                    <label class="form-check-label" for="claimType">
-                                        เข้ารับบริการรักษาทั่วไป (OPD/ IPD/ PP) 
-                                    </label> 
-                            </div>
-                        </div>                                                                     
-                    </div>
-                    <div class="row">
-                        <div class="col-md-2 text-end">
-                            <div class="mb-3"> 
-                                <label for="claimType" class="form-label"> </label>   
-                            </div>
-                        </div>
-                        <div class="col-md-10 ">
-                            <div class="mb-3"> 
-                                <input class="form-check-input me-3" type="radio" name="claimType" id="claimType2" value="PG0120001"> 
-                                    <label class="form-check-label" for="claimType2">
-                                        UCEP PLUS (ผู้ป่วยกลุ่มอาการสีเหลืองและสีแดง) 
-                                    </label>
-                          
-                            </div>
-                        </div>                                                                     
-                    </div>
-                    <div class="row">
-                        <div class="col-md-2 text-end">
-                            <div class="mb-3"> 
-                                <label for="claimType" class="form-label"> </label>   
-                            </div>
-                        </div>
-                        <div class="col-md-10 ">
-                            <div class="mb-3"> 
-                                <input class="form-check-input me-3" type="radio" name="claimType" id="claimType3" value="PG0130001"> 
-                                    <label class="form-check-label" for="claimType3">
-                                        บริการฟอกเลือดด้วยเครื่องไตเทียม (HD) 
-                                    </label>
-                          
-                            </div>
-                        </div>                                                                     
-                    </div>
-                    @foreach ($patient as $item)                       
-                    
-                    <?php
-                    $datacid = DB::table('patient')->where('cid','=',$collection1)->first();
-                    $cid = $datacid->hometel;
-                    // $cid = $datacid->informtel;
-                    ?>
-                    @endforeach
-                    {{-- {{$cid}} --}}
-                    <div class="row">
-                        <div class="col-md-2 text-end">
-                            <div class="mb-3">
-                                <label for="mobile" class="form-label">ยืนยันเบอร์โทรศัพท์ :</label>                           
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="mb-3">  
-                                @if ($cid == '')
-                                    <input type="text" class="form-control" id="mobile" name="mobile" required>
-                                @else
-                                    <input type="text" class="form-control" id="mobile" name="mobile" value="{{$cid}}">
-                                @endif
-                                
-                            </div>
-                        </div>   
-                        <div class="col-md-1 text-end">
-                            <div class="mb-3">
-                                <label for="checkDate" class="form-label">checkDate :</label>                           
-                            </div>
-                        </div>
-                        <div class="col-md-5">
-                            <div class="mb-3">  
-                                <label for="checkDate" class="form-label" style="color: rgb(197, 8, 33)">{{ $collection11 }}</label>
-                                <input type="hidden" class="form-control" id="checkDate" value="{{ $collection11 }}">
-                            </div>
-                        </div>                                                                            
-                    </div>
-                    <hr>
-                    <div class="row">
+                <div class="card-body">                  
+                    <div class="row mt-3"> 
                         <div class="col"></div>
-                        <div class="col-md-2"> 
-                                <button type="submit" class="btn btn-primary shadow-lg">ออก Authen Code</button>  
-                                {{-- <button type="button" id="AuthenCode" class="btn btn-primary shadow-lg">ออก Authen Code</button>   --}}
-                        </div> 
+                        <div class="col-md-5 text-center">
+                            <div class="mb-3"> 
+                                <label for="pid" class="form-label" style="color: rgb(197, 8, 33);font-size:30px">กรุณาเสียบบัตรประชาชน</label> <br>
+                               
+                                <a href="{{url('authen_index')}}" class="btn btn-primary shadow-lg"> <i class="fa-brands fa-medrt me-2"></i> ออก Authen </a>
+                            </div>
+                        </div>
+                       
                         <div class="col"></div>
                     </div>
                 </div>
-            </form>
+         
                   
         </div>
     </div>

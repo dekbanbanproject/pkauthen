@@ -10,10 +10,32 @@ use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use Illuminate\support\Facades\Hash;
 use Illuminate\support\Facades\Validator;
-use Illuminate\support\Facades\Http;
+// use Illuminate\support\Facades\Http;
+use Http;
 
 class AuthencodeController extends Controller
 {     
+    public function authen_index(Request $request)
+    { 
+        $collection = Http::get('http://localhost:8189/api/smartcard/read')->collect();
+        $data['patient'] =  DB::connection('mysql')->select('select cid,hometel from patient limit 10');
+    
+        return view('authen',$data,[
+            'collection1' => $collection['pid'],
+            'collection2' => $collection['fname'],
+            'collection3' => $collection['lname'],
+            'collection4' => $collection['birthDate'],
+            'collection5' => $collection['transDate'],
+            'collection6' => $collection['mainInscl'],
+            'collection7' => $collection['subInscl'],
+            'collection8' => $collection['age'],
+            'collection9' => $collection['checkDate'],
+            'collection10' => $collection['correlationId'],
+            'collection11' => $collection['checkDate'],
+            'collection' => $collection
+        ]);
+   
+    }
     public function authencode(Request $req)
     {
         // $authen = Http::post("http://localhost:8189/api/nhso-service/save-as-draft");
