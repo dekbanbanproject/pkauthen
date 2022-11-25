@@ -11,13 +11,16 @@ use Carbon\Carbon;
 use Illuminate\support\Facades\Hash;
 use Illuminate\support\Facades\Validator;
 // use Illuminate\support\Facades\Http;
+use Stevebauman\Location\Facades\Location;
 use Http;
 
 class AuthencodeController extends Controller
 {     
     public function authen_index(Request $request)
     { 
-        $collection = Http::get('http://localhost:8189/api/smartcard/read')->collect();
+        // $ip = $request()->ip();
+        $ip = $request->ip();
+        $collection = Http::get('http://'.$ip.':8189/api/smartcard/read')->collect();
         $data['patient'] =  DB::connection('mysql')->select('select cid,hometel from patient limit 10');
     
         return view('authen',$data,[
@@ -41,8 +44,8 @@ class AuthencodeController extends Controller
         // $authen = Http::post("http://localhost:8189/api/nhso-service/save-as-draft");
         $cid = $req->pid;
         $tel = $req->mobile;
-
-        $authen = Http::post("http://localhost:8189/api/nhso-service/confirm-save/",
+        // $ip = $request->ip();        
+        $authen = Http::post("http://192.168.123.59:8189/api/nhso-service/confirm-save/",
         [
             'pid'              =>  $cid,
             'claimType'        =>  $req->claimType,

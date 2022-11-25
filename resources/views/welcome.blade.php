@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>สปสช</title>
+    <title>รพ.ภูเขียว</title>
 
     <!-- Fonts -->
     <link href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
@@ -34,7 +34,8 @@
             <div class="card shadow-lg">
                 <div class="card-header text-center">
                     <img src="{{ asset('images/spsch.jpg') }}" alt="Image" class="img-thumbnail" width="600px" height="130px">
-                    <img src="{{ asset('images/logo150.png') }}" alt="Image" class="img-thumbnail" width="135px" height="135px">
+                    <img src="{{ asset('images/dataaudit.jpg') }}" alt="Image" class="img-thumbnail" width="135px" height="135px">
+                    {{-- <img src="{{ asset('images/logo150.png') }}" alt="Image" class="img-thumbnail" width="135px" height="135px"> --}}
                 </div>
                 <div class="card-body">                  
                     <div class="row mt-3"> 
@@ -42,8 +43,15 @@
                         <div class="col-md-5 text-center">
                             <div class="mb-3"> 
                                 <label for="pid" class="form-label" style="color: rgb(197, 8, 33);font-size:30px">กรุณาเสียบบัตรประชาชน</label> <br>
-                               
-                                <a href="{{url('authen_index')}}" class="btn btn-primary shadow-lg"> <i class="fa-brands fa-medrt me-2"></i> ออก Authen </a>
+                               {{-- @if ($status = 500)
+                               <a href=" " class="btn btn-danger shadow-lg"> <i class="fa-brands fa-medrt me-2"></i> ออก Authen </a>
+                               @elseif ($status = 200)
+                               <a href="{{url('authen_index')}}" class="btn btn-primary shadow-lg"> <i class="fa-brands fa-medrt me-2"></i> ออก Authen </a>
+                               @else --}}
+                           
+                               <a href="{{url('authen_index')}}" class="btn btn-primary shadow-lg"> <i class="fa-brands fa-medrt me-2"></i> ออก Authen </a>
+                               {{-- @endif --}}
+                                
                             </div>
                         </div>
                        

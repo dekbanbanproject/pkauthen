@@ -14,9 +14,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    // $datas = "http://localhost:8189/api/smartcard/read";
-    // dd($data );
-    return view('welcome');
+    $datas = Http::get('http://192.168.123.59:8189/api/smartcard/read')->collect();
+
+    // dd($datas );
+    return view('welcome',$datas,[
+        'status' => '200' 
+    ]);
     // $collection = Http::get('http://localhost:8189/api/smartcard/read')->collect();
     // $data['patient'] =  DB::connection('mysql')->select('select cid,hometel from patient limit 10');
 
