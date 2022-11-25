@@ -14,11 +14,26 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-
-    $datas = "http://localhost:8189/api/smartcard/read";
-
+    // $datas = "http://localhost:8189/api/smartcard/read";
     // dd($data );
-    return view('welcome',$data);
+    // return view('welcome',$datas);
+    $collection = Http::get('http://localhost:8189/api/smartcard/read')->collect();
+    $data['patient'] =  DB::connection('mysql')->select('select cid,hometel from patient limit 10');
+
+    return view('welcome',$data,[
+        'collection1' => $collection['pid'],
+        'collection2' => $collection['fname'],
+        'collection3' => $collection['lname'],
+        'collection4' => $collection['birthDate'],
+        'collection5' => $collection['transDate'],
+        'collection6' => $collection['mainInscl'],
+        'collection7' => $collection['subInscl'],
+        'collection8' => $collection['age'],
+        'collection9' => $collection['checkDate'],
+        'collection10' => $collection['correlationId'],
+        'collection11' => $collection['checkDate'],
+        'collection' => $collection
+    ]);
 });
 
 Route::get('/read', [App\Http\Controllers\AuthencodeController::class, 'read'])->name('read');
