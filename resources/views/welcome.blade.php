@@ -34,27 +34,28 @@
             <div class="card shadow-lg">
                 <div class="card-header text-center">
                     <img src="{{ asset('images/spsch.jpg') }}" alt="Image" class="img-thumbnail shadow-lg me-4" width="600px" height="130px">
-                    <img src="{{ asset('images/dataaudit.jpg') }}" alt="Image" class="img-thumbnail shadow-lg" width="135px" height="135px">
-                    {{-- <img src="{{ asset('images/logo150.png') }}" alt="Image" class="img-thumbnail" width="135px" height="135px"> --}}
+                    {{-- <img src="{{ asset('images/dataaudit.jpg') }}" alt="Image" class="img-thumbnail shadow-lg" width="135px" height="135px"> --}}
+                    <img src="{{ asset('images/logo150.png') }}" alt="Image" class="img-thumbnail" width="135px" height="135px">
                 </div>
                 <div class="card-body">                  
                     <div class="row mt-3"> 
                         <div class="col"></div>
                         <div class="col-md-8 text-center">
                             <div class="mb-3"> 
-                              @foreach ($terminals as $items)
-                                  {{-- {{ $items['terminalName']}}  --}}
-                                  {{-- {{ $items['isPresent']}}  --}}
+                             
+                              {{-- {{$smartcard}} --}}
+                                @foreach ($terminals as $items) 
                                   <?php 
                                   $terminalname = $items['terminalName'];
                                   $ispresent = $items['isPresent'];
                                   ?>
                               @endforeach 
+                             
 
                                 <label for="pid" class="form-label" style="color: rgb(11, 11, 11);font-size:30px">เครื่องอ่าน SmartCard : </label>
                                 <label for="pid" class="form-label" style="color: rgb(197, 8, 33);font-size:30px">{{$terminalname}}</label> <br> 
                                 <br>
-
+                                {{-- {{$ispresent}} --}}
                                @if ($ispresent != 'false')
                                   <button class="btn btn-danger shadow-lg"> <i class="fa-brands fa-medrt me-2 ms-3"></i> 
                                     <label for="pid" class="form-label me-3" style="color: rgb(255, 255, 255);font-size:30px">กรุณาเสียบบัตรประชาชน</label>
@@ -75,6 +76,10 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
+            window.setTimeout( function() {
+                window.location.reload();
+            }, 3000);
+
             $(document).ready(function () {
                 $('#insert_AuthencodeForm').on('submit',function(e){
                   e.preventDefault();              
