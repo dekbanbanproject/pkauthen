@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+// use Http;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,11 +14,19 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    $datas = Http::get('http://192.168.123.59:8189/api/smartcard/read')->collect();
+    $event = array(); 
 
-    // dd($datas );
-    return view('welcome',$datas,[
-        'status' => '200' 
+    $datas['datas'] = Http::get('http://192.168.123.59:8189/api/smartcard/read')->collect();
+    // $terminals = Http::get('http://192.168.123.59:8189/api/smartcard/terminals')->collect();
+    $terminals = Http::get('http://192.168.123.59:8189/api/smartcard/terminals')->collect();
+    // [{"terminalName":"Feitian SCR301 0","isPresent":false}]
+    // $terminalname = $terminals->terminalName;
+ 
+    // dd($terminals );
+    return view('welcome',[
+        // 'terminalname' => $terminals['isPresent'],
+        'terminals'   =>   $terminals,
+        'status'      =>   '200' 
     ]);
     // $collection = Http::get('http://localhost:8189/api/smartcard/read')->collect();
     // $data['patient'] =  DB::connection('mysql')->select('select cid,hometel from patient limit 10');
