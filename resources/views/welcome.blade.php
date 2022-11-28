@@ -44,25 +44,60 @@
                             <div class="mb-3"> 
                              
                               {{-- {{$smartcard}} --}}
-                                @foreach ($terminals as $items) 
-                                  <?php 
-                                  $terminalname = $items['terminalName'];
-                                  $ispresent = $items['isPresent'];
-                                  ?>
-                              @endforeach 
-                             
 
-                                <label for="pid" class="form-label" style="color: rgb(11, 11, 11);font-size:30px">เครื่องอ่าน SmartCard : </label>
-                                <label for="pid" class="form-label" style="color: rgb(197, 8, 33);font-size:30px">{{$terminalname}}</label> <br> 
+                               {{$smartcardcon}}
+                               {{-- {{$output}} --}}
+                               @foreach ($output as $item)
+                               {{$item['terminalName']}} 
+                               {{$item['isPresent']}} 
+                               @endforeach
+
+                               {{-- @if ($smartcardshow == '1') --}}
+                              
+                               {{-- <label for="pid" class="form-label" style="color: rgb(11, 11, 11);font-size:30px">--ไม่พบเครื่องอ่านบัตร-- </label><br> --}}
+                              
+                               {{-- @elseif ($ispresent == 'false') --}}
+                               {{-- <label for="pid" class="form-label" style="color: rgb(197, 8, 33);font-size:30px">กรุณาเสียบบัตรประชาชน</label> <br> --}}
+                               {{-- @else --}}
+                               {{-- <label for="pid" class="form-label" style="color: rgb(197, 8, 33);font-size:30px">กรุณาเสียบบัตรประชาชน</label> <br> --}}
+                               {{-- <label for="pid" class="form-label" style="color: rgb(11, 11, 11);font-size:30px">--ไม่พบเครื่องอ่านบัตร-- </label><br> --}}
+                               {{-- @endif --}}
+ 
+                             @if ($smartcard == 'NO_CONNECT' )
+                                <img src="http://localhost:8189/assets/images/smartcard-connected.png" alt="" width="150px"><br>
+                                <label for="pid" class="form-label" style="color: rgb(197, 8, 33);font-size:30px">ไม่พบเครื่องอ่านบัตร</label> <br>
+                               @else
+                                    @if ($smartcardcon != 'CID_OK')
+                                    <label for="pid" class="form-label" style="color: rgb(197, 8, 33);font-size:30px">กรุณาเสียบบัตรประชาชน</label> <br>
+                                    @else
+                                    <a href="{{url('authen_index')}}" class="btn btn-primary shadow-lg"> <i class="fa-brands fa-medrt me-2"></i> ออก Authen </a>
+                                    @endif
+                               {{-- <label for="pid" class="form-label" style="color: rgb(197, 8, 33);font-size:30px">กรุณาเสียบบัตรประชาชน</label> <br> --}}
+                               @endif  
+
+                                {{-- <label for="pid" class="form-label" style="color: rgb(11, 11, 11);font-size:30px">เครื่องอ่าน SmartCard : </label> --}}
+                                {{-- @if ($terminals == null) --}}
+                                {{-- <label for="pid" class="form-label" style="color: rgb(197, 8, 33);font-size:30px">กรุณาเสียบบัตรประชาชน</label> <br> --}}
+                                {{-- @else --}}
+                                        {{-- @foreach ($terminals as $items)  --}}
+                                            <?php 
+                                            // $terminalname = $items['terminalName'];
+                                            // $terminalname = $items->terminalName;
+                                            // $ispresent = $items['isPresent'];
+                                            ?>
+                                        {{-- @endforeach  --}}
+                                     {{-- <label for="pid" class="form-label" style="color: rgb(197, 8, 33);font-size:30px">{{$terminalname}}</label> <br> --}}
+                                {{-- @endif --}}
+                                {{-- <label for="pid" class="form-label" style="color: rgb(197, 8, 33);font-size:30px">{{$terminalname}}</label> <br>  --}}
                                 <br>
                                 {{-- {{$ispresent}} --}}
-                               @if ($ispresent != 'false')
+                               {{-- @if ($ispresent != 'false')
                                   <button class="btn btn-danger shadow-lg"> <i class="fa-brands fa-medrt me-2 ms-3"></i> 
                                     <label for="pid" class="form-label me-3" style="color: rgb(255, 255, 255);font-size:30px">กรุณาเสียบบัตรประชาชน</label>
                                   </button>                               
                                @else                           
                                   <a href="{{url('authen_index')}}" class="btn btn-primary shadow-lg"> <i class="fa-brands fa-medrt me-2"></i> ออก Authen </a>
-                               @endif
+                               @endif --}}
                                 
                             </div>
                         </div>
@@ -78,7 +113,7 @@
     <script>
             window.setTimeout( function() {
                 window.location.reload();
-            }, 3000);
+            }, 1000);
 
             $(document).ready(function () {
                 $('#insert_AuthencodeForm').on('submit',function(e){

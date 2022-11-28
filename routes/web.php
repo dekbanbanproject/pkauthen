@@ -21,81 +21,105 @@ Route::get('/', function (Request $request) {
     // $terminals = Http::get('http://192.168.0.17:8189/api/smartcard/terminals');
     // $terminals = Http::get('http://192.168.123.59:8189/api/smartcard/terminals');
     // $terminals = Http::get('http://'.$ip.':8189/api/smartcard/terminals')->collect();
-    $terminals = Http::get('http://192.168.123.59:8189/api/smartcard/terminals')->collect(); 
+    // $terminals = Http::get('http://192.168.123.59:8189/api/smartcard/terminals')->collect(); 
     // $smartcard = Http::get('http://192.168.0.17:8189/api/smartcard/read')->collect();  
-    // $smartcard = Http::get('http://'.$ip.':8189/api/smartcard/read')->collect();
-    // $smartcardcheck = $terminals['statusCode'];
-    // $smartcardcheck = $terminals['isPresent'];
-    // foreach ($terminals as $items) 
-    //     {
-    //      $terminalname = $items['statusCode']; 
-    //     }
-    // dd($smartcardcheck);
-    // if ($smartcardcheck = '500') {
-    //     $smartcardshow_data = 'กรุณาเสียบที่อ่านการ์ด';
-    // } else {
-    //     $terminals = Http::get('http://192.168.123.59:8189/api/smartcard/terminals')->collect();
-    //     $smartcardread = Http::get('http://192.168.123.59:8189/api/smartcard/read')->collect(); 
+    // $terminals = Http::get('http://'.$ip.':8189/api/smartcard/terminals'); 
+    $terminals = Http::get('http://'.$ip.':8189/api/smartcard/terminals')->collect(); 
+    $cardcid = Http::get('http://'.$ip.':8189/api/smartcard/read')->collect();  
+    $cardcidonly = Http::get('http://'.$ip.':8189/api/smartcard/read-card-only')->collect(); 
+   
+            // $output = data_set($terminals,'' ,'');
+        // $output = data_set($terminals,'terminalname','1');
+        // $output = data_set($terminals,'isPresent','false');
+        // $output = Arr::query($terminals);
+        $output = Arr::sort($terminals);
+        $outputcard = Arr::sort($cardcid);
+        $outputcardonly = Arr::sort($cardcidonly);
+        // $output = Arr::sort($terminals['isPresent']);
+        // dd($outputcardonly);
 
-    // if ($terminals['status'] != 500 || $terminals['terminalName'] != '') {
-    //     foreach ($terminals as $items) 
-    //     {
-    //      $terminalname = $items['terminalName'];
-    //      $ispresent = $items['isPresent'];
-    //     }
-
-    //     if ($ispresent = 'false') {
-    //         $smartcardshow_data = 'ไม่พบเครื่องอ่านบัตร';
-    //     } else {
-    //         # code...
-    //     }
-    // } else {
-    //     $smartcardshow_data = 'ไม่พบเครื่องอ่านบัตร';
-    // }
-    
-        // foreach ($terminals as $items) 
-        // {
-        //  $terminalname = $items['terminalName'];
-        //  $ispresent = $items['isPresent'];
+        if ($output == []) {
+            $smartcard = 'NO_CONNECT';
+            $smartcardcon = '';
+        } else {
+            $smartcard = 'CONNECT';
+            foreach ($output as $key => $value) {
+                $terminalname = $value['terminalName'];
+                $cardcids = $value['isPresent']; 
+            }
+            if ($cardcids != 'false') {
+                $smartcardcon = 'NO_CID';
+            } else {
+                $smartcardcon = 'CID_OK';
+            }
+            
+            // $carddd = $cardcids;
+            // $terminalname = $terminalname;
+        }
+        // foreach ($output as $key => $value) {
+        //     $terminalname = $value['terminalName'];
+        //     $cardcids = $value['isPresent']; 
         // }
-
-        // if ($ispresent = 'false') {
-        //     $smartcardshow_data = 'กรุณาเสียบที่อ่านการ์ด';
+        // if (condition) {
+        //     # code...
         // } else {
         //     # code...
         // }
-        
-    // }
-//     "terminalName": "Feitian SCR301 0",
-// "isPresent": false
-   
-    
+        // foreach ($outputcard as $key => $value2) { 
+        //     $carddd = $value2['status']; 
+        // }
+        // dd($smartcardcon);
+    // dd($terminalname);
+    return view('welcome',[ 
+        'smartcard'            =>   $smartcard, 
+        'cardcid'            =>  $cardcid,
+        'smartcardcon'            =>  $smartcardcon,
+        'output'            =>  $output,
+        'status'               =>   '200' 
+    ]);
+    // $smartcard = Http::get('http://'.$ip.':8189/api/smartcard/read')->collect();
+    // $datacard[]=[
+    //   $dataC = $terminals['isPresent'];
+    // ]
+    // $smartcardcheck = $terminals['terminalName'];
+    // $smartcardcheck = $terminals['isPresent'];
+    // foreach ($terminals as $items) 
+    //     {
+    //      $terminalname = $items->terminalName;         
+        // }
 
-//   if ($ispresent = 'true' ) {
-//     $smartcardshow_data = $smartcardread;
-//     } else {
-        
-//         $smartcardshow_data = 'กรุณาเสียบที่อ่านการ์ด';
-//     }
-    // $ip = $request->ip();
-    // dd($smartcardshow_data);
-    // $datas['datas'] = Http::get('http://'.$ip.':8189/api/smartcard/read')->collect();  
-    // $terminals = Http::get('http://'.$ip.':8189/api/smartcard/terminals')->collect();
-    // $smartcard = $terminals['status'];
-    // dd($terminal);
-    // if ($smartcard == 500 ) {
-    //     $terminalsd = 'กรุณาเสียบที่อ่านการ์ด';
+    // $terminals = [];
+    // if ($terminals == '') {
+    //     $smartcardshow = '1';
+        // $terminals_show = '';
     // } else {
-    //     $terminalss = $terminal;
-    // }
+    //     foreach ($terminals as $items) 
+    //     {   
+    //         $ispresent = $items['isPresent']; 
+    //         // $smartcardcheck = $items['terminalName'];  
+    //     }  
+    //     // $smartcardshow = '2';
+    // // }
+    // dd($terminals);
+
+    // if ($ispresent = 'false') {
+    //     // $smartcardshow_data = 'กรุณาเสียบบัตรประชาชน';
+    // } else {    
+ 
+    // }  
+    
     
     // dd($terminals['status'] );
-    return view('welcome',[
-        // 'terminalname' => $terminals['isPresent'],
-        'terminals'   =>   $terminals,
-        // 'smartcard'   =>   $smartcard,
-        'status'      =>   '200' 
-    ]);
+    // return view('welcome',[
+    //     // 'terminalname' => $terminals['isPresent'],
+    //     'terminals'            =>   $terminals,
+    //     // 'smartcardshow_data'   =>   $smartcardshow_data,
+    //     // 'terminals_show'       =>   $terminals_show,
+    //     // 'smartcardshow'        =>   $smartcardshow,
+    //     // 'terminals_data'        =>   $terminals_data,
+    //     'ispresent'            =>  $ispresent,
+    //     'status'               =>   '200' 
+    // ]);
     // $collection = Http::get('http://localhost:8189/api/smartcard/read')->collect();
     // $data['patient'] =  DB::connection('mysql')->select('select cid,hometel from patient limit 10');
 
