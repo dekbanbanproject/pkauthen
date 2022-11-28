@@ -38,10 +38,10 @@
                     {{-- <img src="{{ asset('images/logo150.png') }}" alt="Image" class="img-thumbnail" width="135px" height="135px"> --}}
                 {{-- </div> --}}
                 <div class="card-body"> 
-                    <div class="row mt-3"> 
+                    <div class="row"> 
                     <div class="col"></div> 
                     <div class="col-md-3">
-                      <img src="{{ asset('images/dataaudit.jpg') }}" alt="Image" class="img-thumbnail shadow-lg" width="235px" height="135px">
+                      <img src="{{ asset('images/dataaudit.jpg') }}" alt="Image" class="img-thumbnail shadow-lg" width="200px" height="135px">
                     </div>  
                     <div class="col"></div>
                   </div>
