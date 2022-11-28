@@ -43,8 +43,7 @@
                         <div class="col-md-8 text-center">
                             <div class="mb-3"> 
                              
-                                <br>
-                               {{-- {{$output}} --}}
+                                <br> 
                                @foreach ($output as $item)
                                 
                                <label for="pid" class="form-label" style="color: rgb(11, 11, 11);font-size:30px">เครื่องอ่าน SmartCard :  {{$item['terminalName']}}</label>
@@ -56,6 +55,8 @@
                                 <label for="pid" class="form-label" style="color: rgb(197, 8, 33);font-size:30px">ไม่พบเครื่องอ่านบัตร</label> <br>
                                @else
                                     @if ($smartcardcon != 'CID_OK')
+                                    <img src="{{ asset('images/card1.jpg') }}" alt="Image" class="img-thumbnail shadow-lg me-4" width="250px">
+                                    <br><br>
                                     <label for="pid" class="form-label" style="color: rgb(197, 8, 33);font-size:30px">กรุณาเสียบบัตรประชาชน</label> <br>
                                     @else
                                     <a href="{{url('authen_index')}}" class="btn btn-primary shadow-lg"> <i class="fa-brands fa-medrt me-2"></i> ออก Authen </a>
@@ -101,7 +102,7 @@
     <script>
             window.setTimeout( function() {
                 window.location.reload();
-            }, 1000);
+            }, 5000);
 
             $(document).ready(function () {
                 $('#insert_AuthencodeForm').on('submit',function(e){
