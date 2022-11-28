@@ -43,28 +43,16 @@
                         <div class="col-md-8 text-center">
                             <div class="mb-3"> 
                              
-                              {{-- {{$smartcard}} --}}
-
-                               {{$smartcardcon}}
+                                <br>
                                {{-- {{$output}} --}}
                                @foreach ($output as $item)
-                               {{$item['terminalName']}} 
-                               {{$item['isPresent']}} 
+                                
+                               <label for="pid" class="form-label" style="color: rgb(11, 11, 11);font-size:30px">เครื่องอ่าน SmartCard :  {{$item['terminalName']}}</label>
                                @endforeach
-
-                               {{-- @if ($smartcardshow == '1') --}}
-                              
-                               {{-- <label for="pid" class="form-label" style="color: rgb(11, 11, 11);font-size:30px">--ไม่พบเครื่องอ่านบัตร-- </label><br> --}}
-                              
-                               {{-- @elseif ($ispresent == 'false') --}}
-                               {{-- <label for="pid" class="form-label" style="color: rgb(197, 8, 33);font-size:30px">กรุณาเสียบบัตรประชาชน</label> <br> --}}
-                               {{-- @else --}}
-                               {{-- <label for="pid" class="form-label" style="color: rgb(197, 8, 33);font-size:30px">กรุณาเสียบบัตรประชาชน</label> <br> --}}
-                               {{-- <label for="pid" class="form-label" style="color: rgb(11, 11, 11);font-size:30px">--ไม่พบเครื่องอ่านบัตร-- </label><br> --}}
-                               {{-- @endif --}}
- 
+                               <br><br>
+                               
                              @if ($smartcard == 'NO_CONNECT' )
-                                <img src="http://localhost:8189/assets/images/smartcard-connected.png" alt="" width="150px"><br>
+                                <img src="http://localhost:8189/assets/images/smartcard-connected.png" alt="" width="250px"><br> <br>
                                 <label for="pid" class="form-label" style="color: rgb(197, 8, 33);font-size:30px">ไม่พบเครื่องอ่านบัตร</label> <br>
                                @else
                                     @if ($smartcardcon != 'CID_OK')
