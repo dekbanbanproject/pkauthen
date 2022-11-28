@@ -141,7 +141,7 @@ class AuthencodeController extends Controller
         // STR_PAD_LEFT - เติมด้านซ้าย
         // STR_PAD_RIGHT - เติมด้านขวา (default)
      
-    //    $contents = File::get('D:\Authen\nhso_token.txt');
+        //    $contents = File::get('D:\Authen\nhso_token.txt');
         $ip = $req->ip();
         // $path = ($ip.'/PKAuthen'.'/public/'.'Authen/nhso_token.txt');
         $contents = file('D:\Authen\nhso_token.txt', FILE_SKIP_EMPTY_LINES|FILE_IGNORE_NEW_LINES);  

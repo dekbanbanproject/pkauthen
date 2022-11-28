@@ -28,17 +28,18 @@ Route::get('/', function (Request $request) {
     $cardcid = Http::get('http://'.$ip.':8189/api/smartcard/read')->collect();  
     $cardcidonly = Http::get('http://'.$ip.':8189/api/smartcard/read-card-only')->collect(); 
    
-            // $output = data_set($terminals,'' ,'');
+        // $output = data_set($terminals,'' ,'');
         // $output = data_set($terminals,'terminalname','1');
         // $output = data_set($terminals,'isPresent','false');
-        // $output = Arr::query($terminals);
-        $output = Arr::sort($terminals);
+        $output = Arr::query($terminals);
+        // $output = Arr::sort($terminals);
         $outputcard = Arr::sort($cardcid);
         $outputcardonly = Arr::sort($cardcidonly);
         // $output = Arr::sort($terminals['isPresent']);
-        // dd($outputcardonly);
 
-        if ($output == []) {
+        // dd($output);
+        // if ($output == []) {
+        if ($output =="") {
             $smartcard = 'NO_CONNECT';
             $smartcardcon = '';
         } else {
@@ -52,7 +53,7 @@ Route::get('/', function (Request $request) {
             } else {
                 $smartcardcon = 'CID_OK';
             }
-            
+            dd($cardcids); 
             // $carddd = $cardcids;
             // $terminalname = $terminalname;
         }
