@@ -1,0 +1,100 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+nhsoauthenmx
+</name>
+</assembly>
+<members>
+<member name="T:nhsoauthenmx.My.Resources.Resources">
+<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member>
+<member name="P:nhsoauthenmx.My.Resources.Resources.ResourceManager">
+<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member>
+<member name="P:nhsoauthenmx.My.Resources.Resources.Culture">
+<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member>
+<member name="P:nhsoauthenmx.My.Resources.Resources._1582712553750">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:nhsoauthenmx.My.Resources.Resources._1582859495442">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:nhsoauthenmx.My.Resources.Resources.Check_iconx">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:nhsoauthenmx.My.Resources.Resources.chipsmc">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:nhsoauthenmx.My.Resources.Resources.Delete_iconxxx">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:nhsoauthenmx.My.Resources.Resources.logo">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="T:nhsoauthenmx.LK_00023_01_038">
+ <summary>
+ สำนักทะเบียน บริการข้อมูลภาพใบหน้า (ตามบัตรล่าสุด)
+ </summary>
+</member>
+<member name="T:nhsoauthenmx.ucauthenmx.rsAuthenStep2">
+<remarks/>
+</member>
+<member name="P:nhsoauthenmx.ucauthenmx.rsAuthenStep2.authensource">
+<remarks/>
+</member>
+<member name="P:nhsoauthenmx.ucauthenmx.rsAuthenStep2.param">
+<remarks/>
+</member>
+<member name="P:nhsoauthenmx.ucauthenmx.rsAuthenStep2.paramname">
+<remarks/>
+</member>
+<member name="P:nhsoauthenmx.ucauthenmx.rsAuthenStep2.pidname">
+<remarks/>
+</member>
+<member name="P:nhsoauthenmx.ucauthenmx.rsAuthenStep2.status">
+<remarks/>
+</member>
+<member name="P:nhsoauthenmx.ucauthenmx.rsAuthenStep2.status_desc">
+<remarks/>
+</member>
+<member name="P:nhsoauthenmx.ucauthenmx.rsAuthenStep2.tokenws">
+<remarks/>
+</member>
+<member name="T:nhsoauthenmx.ucauthenmx.rsAuthenStep1">
+<remarks/>
+</member>
+<member name="P:nhsoauthenmx.ucauthenmx.rsAuthenStep1.authensource">
+<remarks/>
+</member>
+<member name="P:nhsoauthenmx.ucauthenmx.rsAuthenStep1.status">
+<remarks/>
+</member>
+<member name="P:nhsoauthenmx.ucauthenmx.rsAuthenStep1.status_desc">
+<remarks/>
+</member>
+<member name="P:nhsoauthenmx.ucauthenmx.rsAuthenStep1.XKey">
+<remarks/>
+</member>
+</members>
+</doc>
