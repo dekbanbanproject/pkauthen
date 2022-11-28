@@ -40,7 +40,7 @@
                 <div class="card-body"> 
                     <div class="row"> 
                     <div class="col"></div> 
-                    <div class="col-md-3">
+                    <div class="col-md-3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                       <img src="{{ asset('images/dataaudit.jpg') }}" alt="Image" class="img-thumbnail shadow-lg" width="200px" height="135px">
                     </div>  
                     <div class="col"></div>
