@@ -31,15 +31,15 @@ Route::get('/', function (Request $request) {
         // $output = data_set($terminals,'' ,'');
         // $output = data_set($terminals,'terminalname','1');
         // $output = data_set($terminals,'isPresent','false');
-        $output = Arr::query($terminals);
-        // $output = Arr::sort($terminals);
+        // $output = Arr::query($terminals);
+        $output = Arr::sort($terminals);
         $outputcard = Arr::sort($cardcid);
         $outputcardonly = Arr::sort($cardcidonly);
         // $output = Arr::sort($terminals['isPresent']);
 
         // dd($output);
-        // if ($output == []) {
-        if ($output =="") {
+        if ($output == []) {
+        // if ($output == "") {
             $smartcard = 'NO_CONNECT';
             $smartcardcon = '';
         } else {
@@ -53,7 +53,7 @@ Route::get('/', function (Request $request) {
             } else {
                 $smartcardcon = 'CID_OK';
             }
-            dd($cardcids); 
+            // dd($cardcids); 
             // $carddd = $cardcids;
             // $terminalname = $terminalname;
         }

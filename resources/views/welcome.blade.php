@@ -32,25 +32,27 @@
         <div class="flex justify-center mt-4">    
             
             <div class="card shadow-lg">
-                {{-- <div class="card-header text-center"> --}}
-                    {{-- <img src="{{ asset('images/spsch.jpg') }}" alt="Image" class="img-thumbnail shadow-lg me-4" width="600px" height="130px"> --}}
+                <div class="card-header text-center">
+                    <img src="{{ asset('images/spsch.jpg') }}" alt="Image" class="img-thumbnail shadow-lg me-4" width="600px" height="130px">
                     {{-- <img src="{{ asset('images/dataaudit.jpg') }}" alt="Image" class="img-thumbnail shadow-lg" width="135px" height="135px"> --}}
-                    {{-- <img src="{{ asset('images/logo150.png') }}" alt="Image" class="img-thumbnail" width="135px" height="135px"> --}}
-                {{-- </div> --}}
+                    <img src="{{ asset('images/logo150.png') }}" alt="Image" class="img-thumbnail" width="135px" height="135px">
+                </div>
                 <div class="card-body"> 
                     <div class="row"> 
-                    <div class="col"></div> 
-                    <div class="col-md-3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                      <img src="{{ asset('images/dataaudit.jpg') }}" alt="Image" class="img-thumbnail shadow-lg" width="200px" height="135px">
-                    </div>  
-                    <div class="col"></div>
-                  </div>
+                        <div class="col"></div> 
+                        <div class="col-md-3">&nbsp;&nbsp;
+                          {{-- &nbsp;&nbsp;&nbsp;   --}}
+                          {{-- <img src="{{ asset('images/dataaudit.jpg') }}" alt="Image" class="img-thumbnail shadow-lg" width="200px" height="135px"> --}}
+                          {{-- <img src="{{ asset('images/logo150.png') }}" alt="Image" class="img-thumbnail" width="250px" height="135px"> --}}
+                        </div>  
+                        <div class="col"></div>
+                    </div>
                     <div class="row"> 
                         <div class="col"></div>
                         <div class="col-md-8 text-center">
                             <div class="mb-3"> 
-                             {{$output}}
-                                <br> 
+                             {{-- {{$output}} --}}
+                                {{-- <br>  --}}
                                {{-- @foreach ($output as $item)
                                 
                                <label for="pid" class="form-label" style="color: rgb(11, 11, 11);font-size:30px">เครื่องอ่าน SmartCard :  {{$item['terminalName']}}</label>
@@ -77,13 +79,11 @@
                                    <i class="fa-regular fa-id-card me-2"></i>
                                       กรณีลืมบัตรประชาชน </a>
                             </div>
-                        </div>
-                       
+                        </div>                       
                         <div class="col"></div>
-                    </div>
-                </div>
-         
-                  
+                    </div> 
+                </div>  
+            </div>  
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
