@@ -17,7 +17,7 @@ use Illuminate\Http\Request;
 Route::get('/', function (Request $request) {
 
      // เจน  hos_guid  จาก Hosxp
-     $data_key = DB::connection('mysql5')->select('SELECT uuid() as keygen'); 
+     $data_key = DB::connection('mysql')->select('SELECT uuid() as keygen'); 
      $output = Arr::sort($data_key); 
      $output2 = Arr::query($data_key);       
      // $output3 = Arr::sort($data_key['keygen']);
@@ -25,9 +25,7 @@ Route::get('/', function (Request $request) {
      foreach ($output4 as $key => $value) { 
          $output_show = $value->keygen; 
      }
-     // dd($output_show);
-
-     
+     // dd($output_show);     
     $ip = $request->ip();
     //   dd($ip);
     // $terminals = Http::get('http://192.168.0.17:8189/api/smartcard/terminals')->collect();
@@ -118,10 +116,8 @@ Route::get('/', function (Request $request) {
 
     // if ($ispresent = 'false') {
     //     // $smartcardshow_data = 'กรุณาเสียบบัตรประชาชน';
-    // } else {    
- 
-    // }  
-    
+    // } else {   
+    // }      
     
     // dd($terminals['status'] );
     // return view('welcome',[

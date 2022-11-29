@@ -51,7 +51,7 @@ class AuthencodeController extends Controller
         $cid = $req->pid;
         $tel = $req->mobile;
         // $ip = $request->ip();        
-        $authen = Http::post("http://localhost:8189/api/nhso-service/confirm-save/",
+        $authen = Http::post("http://192.168.123.59:8189/api/nhso-service/confirm-save/",
         [
             'pid'              =>  $cid,
             'claimType'        =>  $req->claimType,
