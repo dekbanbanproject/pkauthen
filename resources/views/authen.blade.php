@@ -197,7 +197,13 @@
                     
                     <?php
                     $datacid = DB::table('patient')->where('cid','=',$collection1)->first();
-                    $cid = $datacid->hometel;
+                    if ($datacid->hometel != null) {
+                        $cid = $datacid->hometel;
+                    } else {
+                        $cid = '';
+                    }
+                    
+                   
                     // $cid = $datacid->informtel;
                     ?>
                     @endforeach
