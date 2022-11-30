@@ -3,28 +3,40 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 // use Http;
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
+use GuzzleHttp\Client;
 Route::get('/', function (Request $request) {
 
      // เจน  hos_guid  จาก Hosxp
-     $data_key = DB::connection('mysql')->select('SELECT uuid() as keygen'); 
-     $output = Arr::sort($data_key); 
-     $output2 = Arr::query($data_key);       
+    //  $data_key = DB::connection('mysql')->select('SELECT uuid() as keygen'); 
+    //  $output = Arr::sort($data_key); 
+    //  $output2 = Arr::query($data_key);       
      // $output3 = Arr::sort($data_key['keygen']);
+    //  $output4 = Arr::sort($data_key); 
+    //  foreach ($output4 as $key => $value) { 
+    //      $output_show = $value->keygen; 
+    //  }
+
+     $year = substr(date("Y"),2) +43;
+     $mounts = date('m');
+     $day = date('d');
+     $time = date("His"); 
+     $hcode = '10978';
+     $vn = $year.''.$mounts.''.$day.''.$time;
+     $getpatient =  DB::connection('mysql')->select('select cid,hometel from patient limit 2');
+     $getvn_stat =  DB::connection('mysql')->select('select * from vn_stat limit 2');
+     $get_ovst =  DB::connection('mysql')->select('select * from ovst limit 2');
+     $get_opdscreen =  DB::connection('mysql')->select('select * from opdscreen limit 2');
+     $get_ovst_seq =  DB::connection('mysql')->select('select * from ovst_seq limit 2');
+
+     $getovst_key = Http::get('https://cloud4.hosxp.net/api/ovst_key?Action=get_ovst_key&hospcode="'.$hcode.'"&vn="'.$vn.'"&computer_name=abcde&app_name=AppName&fbclid=IwAR2SvX7NJIiW_cX2JYaTkfAduFqZAi1gVV7ftiffWPsi4M97pVbgmRBjgY8')->collect();
+    
+     // เจน  hos_guid  จาก Hosxp
+     $data_key = DB::connection('mysql')->select('SELECT uuid() as keygen');  
      $output4 = Arr::sort($data_key); 
      foreach ($output4 as $key => $value) { 
          $output_show = $value->keygen; 
      }
+     // dd($output_show);
      // dd($output_show);     
     $ip = $request->ip();
     //   dd($ip);
@@ -63,24 +75,11 @@ Route::get('/', function (Request $request) {
                 $smartcardcon = 'NO_CID';
             } else {
                 $smartcardcon = 'CID_OK';
-            }
-            // dd($cardcids); 
-            // $carddd = $cardcids;
-            // $terminalname = $terminalname;
+            }          
         }
-        // foreach ($output as $key => $value) {
-        //     $terminalname = $value['terminalName'];
-        //     $cardcids = $value['isPresent']; 
-        // }
-        // if (condition) {
-        //     # code...
-        // } else {
-        //     # code...
-        // }
-        // foreach ($outputcard as $key => $value2) { 
-        //     $carddd = $value2['status']; 
-        // }
-        // dd($smartcardcon);
+
+       
+        
     // dd($terminalname);
     return view('welcome',[ 
         'smartcard'            =>   $smartcard, 
@@ -89,64 +88,7 @@ Route::get('/', function (Request $request) {
         'output'            =>  $output,
         'status'               =>   '200' 
     ]);
-    // $smartcard = Http::get('http://'.$ip.':8189/api/smartcard/read')->collect();
-    // $datacard[]=[
-    //   $dataC = $terminals['isPresent'];
-    // ]
-    // $smartcardcheck = $terminals['terminalName'];
-    // $smartcardcheck = $terminals['isPresent'];
-    // foreach ($terminals as $items) 
-    //     {
-    //      $terminalname = $items->terminalName;         
-        // }
-
-    // $terminals = [];
-    // if ($terminals == '') {
-    //     $smartcardshow = '1';
-        // $terminals_show = '';
-    // } else {
-    //     foreach ($terminals as $items) 
-    //     {   
-    //         $ispresent = $items['isPresent']; 
-    //         // $smartcardcheck = $items['terminalName'];  
-    //     }  
-    //     // $smartcardshow = '2';
-    // // }
-    // dd($terminals);
-
-    // if ($ispresent = 'false') {
-    //     // $smartcardshow_data = 'กรุณาเสียบบัตรประชาชน';
-    // } else {   
-    // }      
-    
-    // dd($terminals['status'] );
-    // return view('welcome',[
-    //     // 'terminalname' => $terminals['isPresent'],
-    //     'terminals'            =>   $terminals,
-    //     // 'smartcardshow_data'   =>   $smartcardshow_data,
-    //     // 'terminals_show'       =>   $terminals_show,
-    //     // 'smartcardshow'        =>   $smartcardshow,
-    //     // 'terminals_data'        =>   $terminals_data,
-    //     'ispresent'            =>  $ispresent,
-    //     'status'               =>   '200' 
-    // ]);
-    // $collection = Http::get('http://localhost:8189/api/smartcard/read')->collect();
-    // $data['patient'] =  DB::connection('mysql')->select('select cid,hometel from patient limit 10');
-
-    // return view('welcome',$data,[
-    //     'collection1' => $collection['pid'],
-    //     'collection2' => $collection['fname'],
-    //     'collection3' => $collection['lname'],
-    //     'collection4' => $collection['birthDate'],
-    //     'collection5' => $collection['transDate'],
-    //     'collection6' => $collection['mainInscl'],
-    //     'collection7' => $collection['subInscl'],
-    //     'collection8' => $collection['age'],
-    //     'collection9' => $collection['checkDate'],
-    //     'collection10' => $collection['correlationId'],
-    //     'collection11' => $collection['checkDate'],
-    //     'collection' => $collection
-    // ]);
+   
 });
 
 Route::get('authen_index', [App\Http\Controllers\AuthencodeController::class, 'authen_index'])->name('authen_index');
