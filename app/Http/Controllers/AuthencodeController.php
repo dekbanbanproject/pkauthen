@@ -25,23 +25,64 @@ class AuthencodeController extends Controller
     { 
         // $ip = $request()->ip();
         $ip = $request->ip();
-        $collection = Http::get('http://'.$ip.':8189/api/smartcard/read')->collect();
+        $collection = Http::get('http://localhost:8189/api/smartcard/read')->collect();
         // $collection = Http::get('http://localhost:8189/api/smartcard/read')->collect();
         $data['patient'] =  DB::connection('mysql')->select('select cid,hometel from patient limit 10');
+
+        $year = substr(date("Y"),2) +43;
+        $mounts = date('m');
+        $day = date('d');
+        $time = date("His"); 
+        $hcode = '10978';
+        $vn = $year.''.$mounts.''.$day.''.$time;
+       //  $getpatient =  DB::connection('mysql')->select('select cid,hometel from patient limit 2');
+        $getvn_stat =  DB::connection('mysql')->select('select * from vn_stat limit 2');
+        $get_ovst =  DB::connection('mysql')->select('select * from ovst limit 2');
+        $get_opdscreen =  DB::connection('mysql')->select('select * from opdscreen limit 2');
+        $get_ovst_seq =  DB::connection('mysql')->select('select * from ovst_seq limit 2');        
+       
+        ///// เจน  hos_guid  จาก Hosxp
+        $data_key = DB::connection('mysql')->select('SELECT uuid() as keygen');  
+        $output4 = Arr::sort($data_key); 
+        foreach ($output4 as $key => $value) { 
+            $output_show = $value->keygen; 
+        }
     
+        $datapatient = DB::table('patient')->where('cid','=',$collection['pid'])->first();
+            if ($datapatient->hometel != null) {
+                $cid = $datapatient->hometel;
+            } else {
+                $cid = '';
+            }   
+            if ($datapatient->hn != null) {
+                $hn = $datapatient->hn;
+            } else {
+                $hn = '';
+            }  
+            if ($datapatient->hcode != null) {
+                $hcode = $datapatient->hcode;
+            } else {
+                $hcode = '';
+            } 
+
+          $getovst_key = Http::get('https://cloud4.hosxp.net/api/ovst_key?Action=get_ovst_key&hospcode="'.$hcode.'"&vn="'.$vn.'"&computer_name=abcde&app_name=AppName&fbclid=IwAR2SvX7NJIiW_cX2JYaTkfAduFqZAi1gVV7ftiffWPsi4M97pVbgmRBjgY8')->collect();    
+            
+            // dd($getovst_key);
+
         return view('authen',$data,[
-            'collection1' => $collection['pid'],
-            'collection2' => $collection['fname'],
-            'collection3' => $collection['lname'],
-            'collection4' => $collection['birthDate'],
-            'collection5' => $collection['transDate'],
-            'collection6' => $collection['mainInscl'],
-            'collection7' => $collection['subInscl'],
-            'collection8' => $collection['age'],
-            'collection9' => $collection['checkDate'],
+            'collection1'  => $collection['pid'],
+            'collection2'  => $collection['fname'],
+            'collection3'  => $collection['lname'],
+            'collection4'  => $collection['birthDate'],
+            'collection5'  => $collection['transDate'],
+            'collection6'  => $collection['mainInscl'],
+            'collection7'  => $collection['subInscl'],
+            'collection8'  => $collection['age'],
+            'collection9'  => $collection['checkDate'],
             'collection10' => $collection['correlationId'],
             'collection11' => $collection['checkDate'],
-            'collection' => $collection
+            'collection'   => $collection,
+            'output_show'  => $output_show
         ]);
    
     }
@@ -145,7 +186,7 @@ class AuthencodeController extends Controller
         //    $contents = File::get('D:\Authen\nhso_token.txt');
         $ip = $req->ip();
         // $path = ($ip.'/PKAuthen'.'/public/'.'Authen/nhso_token.txt');
-        $contents = file('E:\Authen\nhso_token.txt', FILE_SKIP_EMPTY_LINES|FILE_IGNORE_NEW_LINES);  
+        $contents = file('D:\Authen\nhso_token.txt', FILE_SKIP_EMPTY_LINES|FILE_IGNORE_NEW_LINES);  
         // $contents = file($path, FILE_SKIP_EMPTY_LINES|FILE_IGNORE_NEW_LINES);  
         
         foreach($contents as $line) { 

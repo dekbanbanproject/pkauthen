@@ -39,9 +39,9 @@ Route::get('/', function (Request $request) {
     // $terminals = Http::get('http://192.168.123.59:8189/api/smartcard/terminals')->collect(); 
     // $smartcard = Http::get('http://192.168.0.17:8189/api/smartcard/read')->collect();  
     // $terminals = Http::get('http://'.$ip.':8189/api/smartcard/terminals'); 
-    $terminals = Http::get('http://'.$ip.':8189/api/smartcard/terminals')->collect(); 
-    $cardcid = Http::get('http://'.$ip.':8189/api/smartcard/read')->collect();  
-    $cardcidonly = Http::get('http://'.$ip.':8189/api/smartcard/read-card-only')->collect(); 
+    $terminals = Http::get('http://localhost:8189/api/smartcard/terminals')->collect(); 
+    $cardcid = Http::get('http://localhost:8189/api/smartcard/read')->collect();  
+    $cardcidonly = Http::get('http://localhost:8189/api/smartcard/read-card-only')->collect(); 
    
         // $output = data_set($terminals,'' ,'');
         // $output = data_set($terminals,'terminalname','1');

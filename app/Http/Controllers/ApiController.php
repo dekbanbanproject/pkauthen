@@ -55,5 +55,36 @@ class ApiController extends Controller
             $getovst_key,$output_show
         ]);
     }
- 
+    public function ovst_key(Request $request)
+    {
+        $data['patient'] =  DB::connection('mysql')->select('select cid,hometel from patient limit 10');
+
+        $year = substr(date("Y"),2) +43;
+        $mounts = date('m');
+        $day = date('d');
+        $time = date("His"); 
+        $hcode = '10978';
+        $vn = $year.''.$mounts.''.$day.''.$time;
+
+        $collection = Http::get('http://localhost:8189/api/smartcard/read')->collect();
+        $datapatient = DB::table('patient')->where('cid','=',$collection['pid'])->first();
+            if ($datapatient->hometel != null) {
+                $cid = $datapatient->hometel;
+            } else {
+                $cid = '';
+            }   
+            if ($datapatient->hn != null) {
+                $hn = $datapatient->hn;
+            } else {
+                $hn = '';
+            }  
+            if ($datapatient->hcode != null) {
+                $hcode = $datapatient->hcode;
+            } else {
+                $hcode = '';
+            } 
+
+          $getovst_key = Http::get('https://cloud4.hosxp.net/api/ovst_key?Action=get_ovst_key&hospcode="'.$hcode.'"&vn="'.$vn.'"&computer_name=abcde&app_name=AppName&fbclid=IwAR2SvX7NJIiW_cX2JYaTkfAduFqZAi1gVV7ftiffWPsi4M97pVbgmRBjgY8')->collect();    
+        return response([ $getovst_key ]);
+    }
 }
