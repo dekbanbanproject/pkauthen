@@ -87,3 +87,5 @@ Route::get('authen_index', [App\Http\Controllers\AuthencodeController::class, 'a
 Route::get('/read', [App\Http\Controllers\AuthencodeController::class, 'read'])->name('read');
 Route::get('authen_cid', [App\Http\Controllers\AuthencodeController::class, 'authen_cid'])->name('authen_cid');
 Route::get('check_sit', [App\Http\Controllers\AuthencodeController::class, 'check_sit'])->name('c.check_sit');
+
+Route::POST('authen_save', [App\Http\Controllers\AuthencodeController::class, 'authen_save'])->name('a.authen_save');

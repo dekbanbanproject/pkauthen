@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Authencode;
+use App\Models\Ovst;
 use App\Models\Patient;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
@@ -25,7 +26,8 @@ class AuthencodeController extends Controller
     { 
         // $ip = $request()->ip();
         $ip = $request->ip();
-        $collection = Http::get('http://localhost:8189/api/smartcard/read')->collect();
+        // $collection = Http::get('http://localhost:8189/api/smartcard/read')->collect();
+        $collection = Http::get('http://localhost:8189/api/smartcard/read?readImageFlag=true')->collect();
         // $collection = Http::get('http://localhost:8189/api/smartcard/read')->collect();
         $data['patient'] =  DB::connection('mysql')->select('select cid,hometel from patient limit 10');
 
@@ -33,19 +35,19 @@ class AuthencodeController extends Controller
         $mounts = date('m');
         $day = date('d');
         $time = date("His"); 
-        $hcode = '10978';
+        // $hcode = '10978';
         $vn = $year.''.$mounts.''.$day.''.$time;
        //  $getpatient =  DB::connection('mysql')->select('select cid,hometel from patient limit 2');
         $getvn_stat =  DB::connection('mysql')->select('select * from vn_stat limit 2');
         $get_ovst =  DB::connection('mysql')->select('select * from ovst limit 2');
         $get_opdscreen =  DB::connection('mysql')->select('select * from opdscreen limit 2');
         $get_ovst_seq =  DB::connection('mysql')->select('select * from ovst_seq limit 2');        
-       
+        $get_spclty =  DB::connection('mysql')->select('select * from spclty');
         ///// เจน  hos_guid  จาก Hosxp
         $data_key = DB::connection('mysql')->select('SELECT uuid() as keygen');  
         $output4 = Arr::sort($data_key); 
         foreach ($output4 as $key => $value) { 
-            $output_show = $value->keygen; 
+            $hos_guid = $value->keygen; 
         }
     
         $datapatient = DB::table('patient')->where('cid','=',$collection['pid'])->first();
@@ -65,9 +67,73 @@ class AuthencodeController extends Controller
                 $hcode = '';
             } 
 
-          $getovst_key = Http::get('https://cloud4.hosxp.net/api/ovst_key?Action=get_ovst_key&hospcode="'.$hcode.'"&vn="'.$vn.'"&computer_name=abcde&app_name=AppName&fbclid=IwAR2SvX7NJIiW_cX2JYaTkfAduFqZAi1gVV7ftiffWPsi4M97pVbgmRBjgY8')->collect();    
-            
-            // dd($getovst_key);
+            $contents = file('D:\Authen\nhso_token.txt', FILE_SKIP_EMPTY_LINES|FILE_IGNORE_NEW_LINES);
+            foreach($contents as $line) {  
+            }
+            $chars = preg_split('//', $line, -1, PREG_SPLIT_NO_EMPTY);
+            $output = Arr::sort($chars,2);
+
+            $data['data17'] = $chars['17']; $data['data18'] = $chars['18']; $data['data19'] = $chars['19']; $data['data20'] = $chars['20'];
+            $data['data21'] = $chars['21']; $data['data22'] = $chars['22']; $data['data23'] = $chars['23']; $data['data24'] = $chars['24'];
+            $data['data25'] = $chars['25']; $data['data26'] = $chars['26']; $data['data27'] = $chars['27']; $data['data28'] = $chars['28'];
+            $data['data29'] = $chars['29']; $data['data30'] = $chars['30']; $data['data31'] = $chars['31']; $data['data32'] = $chars['32'];
+
+            $token_ = $chars['17'].''.$data['data18'].''.$data['data19'].''.$data['data20'].''.$data['data21'].''.$data['data22'].''.$data['data23'].''.$data['data24'].''.$data['data25'].''.$data['data26'].''.$data['data27']
+            .''.$data['data28'].''.$data['data29'].''.$data['data30'].''.$data['data31'].''.$data['data32'];
+
+            $pid = $collection['pid'];
+            // dd($pid);
+            $client = new SoapClient("http://ucws.nhso.go.th/ucwstokenp1/UCWSTokenP1?wsdl",
+                array(
+                    "uri" => 'http://ucws.nhso.go.th/ucwstokenp1/UCWSTokenP1?xsd=1',
+                                    "trace"      => 1,    
+                                    "exceptions" => 0,    
+                                    "cache_wsdl" => 0 
+                    )
+                );
+                $params = array(
+                    'sequence' => array(
+                        "user_person_id" => "$pid",
+                        "smctoken" => "$token_",
+                        "person_id" => "$pid",
+                )
+            );         
+            $result = $client->__soapCall('searchCurrentByPID',$params);
+
+            foreach ($result as $key => $value) {
+                $status            = $value->status;
+                $cardid            = $value->cardid;
+                $birthday          = $value->birthdate;
+                $fname             = $value->fname;
+                $lname             = $value->lname;
+                $hmain             = $value->hmain;
+                $hmain_name        = $value->hmain_name;
+                $hsub              = $value->hsub;
+                $hsub_name         = $value->hsub_name;
+                $maininscl         = $value->maininscl;
+                $maininscl_main    = $value->maininscl_main;
+                $maininscl_name    = $value->maininscl_name;
+                $expdate           = $value->expdate; 
+                $hmain_op           = $value->hmain_op; 
+                $hmain_op_name      = $value->hmain_op_name; 
+                $mastercup_id       = $value->mastercup_id; 
+                $person_id          = $value->person_id; 
+                $subinscl           = $value->subinscl; 
+                $subinscl_name      = $value->subinscl_name;
+                // $subinscl           = $subinscl
+            }
+        //   $getovst_key = Http::get('https://cloud4.hosxp.net/api/ovst_key?Action=get_ovst_key&hospcode="'.$hcode.'"&vn="'.$vn.'"&computer_name=abcde&app_name=AppName&fbclid=IwAR2SvX7NJIiW_cX2JYaTkfAduFqZAi1gVV7ftiffWPsi4M97pVbgmRBjgY8')->collect();    
+       
+        //APi ovst_key IP SERVER
+        $getovst_key = Http::get('http://192.168.0.17/pkauthen/public/api/ovst_key')->collect();
+        // $hkey = $getovst_key['ovst_key'];$collection['pid']
+        $hkey = $collection['pid']; 
+        $outputcard = Arr::sort($getovst_key);
+        // $outputcard = Arr::sort($getovst_key['ovst_key']);
+        //  foreach ($outputcard as $values) { 
+            // $showovst_key = $values['result']; 
+        // }
+            // dd($result);
 
         return view('authen',$data,[
             'collection1'  => $collection['pid'],
@@ -82,7 +148,15 @@ class AuthencodeController extends Controller
             'collection10' => $collection['correlationId'],
             'collection11' => $collection['checkDate'],
             'collection'   => $collection,
-            'output_show'  => $output_show
+            'hos_guid'     => $hos_guid,
+            'outputcard'   => $outputcard,
+            'collection12' => $collection['hospMain']['hcode'],
+            'collection13' => $collection['image'],
+            'outputcard'   => $outputcard['getovst_key'],
+            'get_spclty'   => $get_spclty,
+            'maininscl'    => $maininscl,
+            'cardid'       => $cardid,
+            'subinscl'     => $subinscl
         ]);
    
     }
@@ -210,22 +284,10 @@ class AuthencodeController extends Controller
         // dd($output,$chars['17']);
         // dd($data['output']);
       
-        $data['data17'] = $chars['17'];
-        $data['data18'] = $chars['18'];
-        $data['data19'] = $chars['19'];
-        $data['data20'] = $chars['20'];
-        $data['data21'] = $chars['21'];
-        $data['data22'] = $chars['22'];
-        $data['data23'] = $chars['23'];
-        $data['data24'] = $chars['24'];
-        $data['data25'] = $chars['25'];
-        $data['data26'] = $chars['26'];
-        $data['data27'] = $chars['27'];
-        $data['data28'] = $chars['28'];
-        $data['data29'] = $chars['29'];
-        $data['data30'] = $chars['30'];
-        $data['data31']= $chars['31'];
-        $data['data32'] = $chars['32'];
+        $data['data17'] = $chars['17']; $data['data18'] = $chars['18']; $data['data19'] = $chars['19']; $data['data20'] = $chars['20'];
+        $data['data21'] = $chars['21']; $data['data22'] = $chars['22']; $data['data23'] = $chars['23']; $data['data24'] = $chars['24'];
+        $data['data25'] = $chars['25']; $data['data26'] = $chars['26']; $data['data27'] = $chars['27']; $data['data28'] = $chars['28'];
+        $data['data29'] = $chars['29']; $data['data30'] = $chars['30']; $data['data31'] = $chars['31']; $data['data32'] = $chars['32'];
 
         $data['datatotal'] = $chars['17'].''.$data['data18'].''.$data['data19'].''.$data['data20'].''.$data['data21'].''.$data['data22'].''.$data['data23'].''.$data['data24'].''.$data['data25'].''.$data['data26'].''.$data['data27']
         .''.$data['data28'].''.$data['data29'].''.$data['data30'].''.$data['data31'].''.$data['data32'];
@@ -378,6 +440,56 @@ class AuthencodeController extends Controller
         'collection11' => $collection['checkDate'],
         'collection' => $collection
        ]);  
+    }
+
+    public function authen_save(Request $req)
+    {
+        $date = date('Y-m-d');
+        $year = substr(date("Y"),2) +43;
+        $mounts = date('m');
+        $day = date('d');
+        $time = date("His");
+        $timesave = date("H:i:s");  
+        $vn = $year.''.$mounts.''.$day.''.$time;
+        $pid = $req->pid;
+        $tel = $req->mobile;
+        $hospmain = $req->hospmain;
+        $oqueue = Ovst::max('oqueue');
+        $maxoqueue = $oqueue+1;
+        
+            $add = new Ovst(); 
+            $add->hos_guid = $req->hos_guid;
+            $add->hn = $req->hn;
+            $add->vn = $vn;
+            $add->spclty = $req->spclty;
+            $add->oqueue = $maxoqueue; 
+            $add->vstdate = $date; 
+            $add->vsttime = $timesave; 
+            $add->ovst_key = $req->ovst_key;
+            $add->pttype = $req->pttype;
+            $add->pttypeno = $req->pttypeno;
+            $add->hospmain = $hospmain; 
+            $add->staff = 'KIOS'; 
+            $add->save();     
+
+            Patient::where('cid', $pid)
+            ->update([
+                'hometel'         => $tel 
+            ]);
+ 
+            // ออก Authen Code       
+            // $authen = Http::post("http://localhost:8189/api/nhso-service/confirm-save/",
+            // [
+            //     'pid'              =>  $pid,
+            //     'claimType'        =>  $req->claimType,
+            //     'mobile'           =>  $tel,
+            //     'correlationId'    =>  $req->correlationId,
+            //     'hcode'            =>  $hospmain 
+            // ]);
+ 
+        return response()->json([
+            'status'     => '200'
+        ]);
     }
 
 }

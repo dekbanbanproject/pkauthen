@@ -27,6 +27,7 @@ class ApiController extends Controller
         $mounts = date('m');
         $day = date('d');
         $time = date("His");
+        $ip = $request->ip();
         // $detallot = 'L'.substr(date("Ymd"),2).'-'.date("His");
         $hcode = '10978';
         $vn = $year.''.$mounts.''.$day.''.$time;
@@ -65,8 +66,10 @@ class ApiController extends Controller
         $time = date("His"); 
         $hcode = '10978';
         $vn = $year.''.$mounts.''.$day.''.$time;
+        $ip = $request->ip();
 
-        $collection = Http::get('http://localhost:8189/api/smartcard/read')->collect();
+        $collection = Http::get('http://'.$ip.':8189/api/smartcard/read')->collect();
+        // $collection = Http::get('http://localhost:8189/api/smartcard/read')->collect();
         $datapatient = DB::table('patient')->where('cid','=',$collection['pid'])->first();
             if ($datapatient->hometel != null) {
                 $cid = $datapatient->hometel;
@@ -85,6 +88,18 @@ class ApiController extends Controller
             } 
 
           $getovst_key = Http::get('https://cloud4.hosxp.net/api/ovst_key?Action=get_ovst_key&hospcode="'.$hcode.'"&vn="'.$vn.'"&computer_name=abcde&app_name=AppName&fbclid=IwAR2SvX7NJIiW_cX2JYaTkfAduFqZAi1gVV7ftiffWPsi4M97pVbgmRBjgY8')->collect();    
-        return response([ $getovst_key ]);
+        
+          $outputcard = Arr::sort($getovst_key);
+          // $outputcard = Arr::sort($getovst_key['ovst_key']);
+        //    foreach ($outputcard as $values) { 
+              // $showovst_key = $values['result']; 
+        //   }
+        
+          return response([
+            'getovst_key'  => $getovst_key['result']['ovst_key'],
+              $outputcard
+             ]);
     }
+
+    
 }
