@@ -25,8 +25,8 @@ class AuthencodeController extends Controller
     { 
         // $ip = $request()->ip();
         $ip = $request->ip();
-        // $collection = Http::get('http://'.$ip.':8189/api/smartcard/read')->collect();
-        $collection = Http::get('http://localhost:8189/api/smartcard/read')->collect();
+        $collection = Http::get('http://'.$ip.':8189/api/smartcard/read')->collect();
+        // $collection = Http::get('http://localhost:8189/api/smartcard/read')->collect();
         $data['patient'] =  DB::connection('mysql')->select('select cid,hometel from patient limit 10');
     
         return view('authen',$data,[
@@ -300,9 +300,11 @@ class AuthencodeController extends Controller
         }
         // dd($fname);
         $ip = $req->ip();
-        $collection = Http::get('http://localhost:8189/api/smartcard/read')->collect();
+        $collection = Http::get('http://'.$ip .':8189/api/smartcard/read')->collect();
+        // $collection = Http::get('http://localhost:8189/api/smartcard/read')->collect();
         $data['patient'] =  DB::connection('mysql')->select('select cid,hometel from patient limit 10');
-
+       
+        // dd($collection);
        return view('check_sit',$data,[
         'result'          =>  $result,
         'birthday'        =>  $birthday,

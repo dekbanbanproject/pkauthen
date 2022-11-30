@@ -78,13 +78,21 @@
                         </div> --}}
                     {{-- </form> --}}
                     {{-- <hr> --}}
+
+
+
+
                     <input type="hidden" class="form-control" id="pid" name="pid" value="{{ $collection1 }}">
                     <input type="hidden" class="form-control" id="fname" value="{{ $collection2 }}">
                     <input type="hidden" class="form-control" id="lname" value="{{ $collection3 }}">
                     <input type="hidden" class="form-control" id="mainInscl" value="{{ $collection6 }}">
                     <input type="hidden" class="form-control" id="subInscl" value="{{ $collection7 }}"> 
                     <input type="hidden" class="form-control" id="birthDate" value="{{ $collection4 }}">
-                                         
+                                
+                    
+
+
+                    
                     <div class="row mt-4">
                         <div class="col-md-3 text-end">
                             <div class="mb-3">
