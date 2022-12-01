@@ -99,7 +99,7 @@ class AuthencodeController extends Controller
                 )
             );         
             $result = $client->__soapCall('searchCurrentByPID',$params);
-
+           
             foreach ($result as $key => $value) {
                 $status            = $value->status;
                 $cardid            = $value->cardid;
@@ -378,35 +378,113 @@ class AuthencodeController extends Controller
             )
         );         
         $result = $client->__soapCall('searchCurrentByPID',$params);
-
-        foreach ($result as $key => $value) {
-            $status            = $value->status;
-            $birthday          = $value->birthdate;
-            $fname             = $value->fname;
-            $lname             = $value->lname;
-            $hmain             = $value->hmain;
-            $hmain_name        = $value->hmain_name;
-            $hsub              = $value->hsub;
-            $hsub_name         = $value->hsub_name;
-            $maininscl         = $value->maininscl;
-            $maininscl_main    = $value->maininscl_main;
-            $maininscl_name    = $value->maininscl_name;
-            $expdate           = $value->expdate; 
-
-            $hmain_op           = $value->hmain_op; 
-            $hmain_op_name      = $value->hmain_op_name; 
-            $mastercup_id       = $value->mastercup_id; 
-            $person_id          = $value->person_id; 
-            $subinscl           = $value->subinscl; 
-            $subinscl_name      = $value->subinscl_name; 
-
+        // $card = Arr::sort($result);
+        // dd($result);
+        foreach ($result as $key => $value1) { 
+            $count_select = $value1->count_select; 
+            $data_status = $value1->ws_status_desc; 
         }
+       
+        // dd($count_select);
+        if ($count_select == '0') {
+            $status            = '';
+            $birthday          = '';
+            $fname             = '';
+            $lname             = '';
+            $hmain             = '';
+            $hmain_name        = '';
+            $hsub              = '';
+            $hsub_name         = '';
+            $maininscl         = '';
+            $maininscl_main    = '';
+            $maininscl_name    = '';
+            $expdate           = '';
+            $hmain_op          = '';
+            $hmain_op_name     = '';
+            $mastercup_id      = '';
+            $person_id         = '';
+            $subinscl          = '';
+            $subinscl_name     = '';
+        } else {
+            foreach ($result as $key => $value) {
+                $status            = $value->status;
+                $birthday          = $value->birthdate;
+                $fname             = $value->fname;
+                $lname             = $value->lname;
+                $hmain             = $value->hmain;
+                $hmain_name        = $value->hmain_name;
+                $hsub              = $value->hsub;
+                $hsub_name         = $value->hsub_name;
+                $maininscl         = $value->maininscl;
+                $maininscl_main    = $value->maininscl_main;
+                $maininscl_name    = $value->maininscl_name;
+                $expdate           = $value->expdate; 
+    
+                $hmain_op           = $value->hmain_op; 
+                $hmain_op_name      = $value->hmain_op_name; 
+                $mastercup_id       = $value->mastercup_id; 
+                $person_id          = $value->person_id; 
+                $subinscl           = $value->subinscl; 
+                $subinscl_name      = $value->subinscl_name; 
+    
+            }
+        }
+        
+       
         // dd($fname);
         $ip = $req->ip();
-        $collection = Http::get('http://'.$ip .':8189/api/smartcard/read')->collect();
+       
+        $terminals = Http::get('http://localhost:8189/api/smartcard/terminals')->collect(); 
+       
         // $collection = Http::get('http://localhost:8189/api/smartcard/read')->collect();
         $data['patient'] =  DB::connection('mysql')->select('select cid,hometel from patient limit 10');
-       
+        $output = Arr::sort($terminals);
+     
+        //เช็คที่อ่านการ์ด
+        if ($output == []) {
+            // if ($output == "") {
+                $smartcard = 'NO_CONNECT';
+                $smartcardcon = '';
+                $collection['pid'] = '';
+                $collection['fname'] = '';
+                $collection['lname'] = '';
+                $collection['birthDate']= '';
+                $collection['transDate'] = '';
+                $collection['mainInscl']= '';
+                $collection['subInscl']= '';
+                $collection['age']= '';
+                $collection['checkDate']= '';
+                $collection['correlationId']= '';
+                $collection['checkDate']= '';
+          
+            } else {                
+                $smartcard = 'CONNECT';
+                foreach ($output as $key => $value) {
+                    $terminalname = $value['terminalName'];
+                    $cardcids = $value['isPresent']; 
+                }
+
+                //เช็คเสียบการ์ด
+                if ($cardcids != 'false') {
+                    $smartcardcon = 'NO_CID';
+                    $collection['pid'] = '';
+                    $collection['fname'] = '';
+                    $collection['lname'] = '';
+                    $collection['birthDate']= '';
+                    $collection['transDate'] = '';
+                    $collection['mainInscl']= '';
+                    $collection['subInscl']= '';
+                    $collection['age']= '';
+                    $collection['checkDate']= '';
+                    $collection['correlationId']= '';
+                    $collection['checkDate']= '';
+                    
+                } else {
+                    $smartcardcon = 'CID_OK';
+                    $collection = Http::get('http://localhost:8189/api/smartcard/read')->collect(); 
+                }    
+                     
+            }
         // dd($collection);
        return view('check_sit',$data,[
         'result'          =>  $result,

@@ -140,8 +140,14 @@
                     @foreach ($patient as $item)                       
                     
                     <?php
-                    $datacid = DB::table('patient')->where('cid','=',$collection1)->first();
+                    if ($collection1 != '') {
+                        $datacid = DB::table('patient')->where('cid','=',$collection1)->first();
                     $cid = $datacid->hometel; 
+                    } else {
+                        $cid = '';
+                    }
+                    
+                   
                     ?>
                     @endforeach
                     <div class="row">

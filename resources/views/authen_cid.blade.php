@@ -51,7 +51,7 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="mb-3">
-                                    <input type="text" class="form-control" id="check_cid" name="check_cid">                       
+                                    <input type="text" class="form-control" id="check_cid" name="check_cid" required>                       
                                 </div>
                             </div> 
                             <div class="col-md-1 text-end">
