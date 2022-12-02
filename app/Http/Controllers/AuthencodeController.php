@@ -591,14 +591,14 @@ class AuthencodeController extends Controller
             $add2->save();     
  
             // ออก Authen Code       
-            // $authen = Http::post("http://localhost:8189/api/nhso-service/confirm-save/",
-            // [
-            //     'pid'              =>  $pid,
-            //     'claimType'        =>  $req->claimType,
-            //     'mobile'           =>  $tel,
-            //     'correlationId'    =>  $req->correlationId,
-            //     'hcode'            =>  $hospmain 
-            // ]);
+            $authen = Http::post("http://localhost:8189/api/nhso-service/confirm-save/",
+            [
+                'pid'              =>  $pid,
+                'claimType'        =>  $req->claimType,
+                'mobile'           =>  $tel,
+                'correlationId'    =>  $req->correlationId,
+                'hcode'            =>  $hospmain 
+            ]);
  
         return response()->json([
             'status'     => '200'
