@@ -299,7 +299,7 @@
                         </div>
                         <br> 
                         <input type="hidden" class="form-control" id="hos_guid" name="hos_guid" value="{{$hos_guid}}">  
-                        <input type="hidden" class="form-control" id="ovst_key" name="ovst_key" value="{{$outputcard}}"> 
+                        <input type="hidden" class="form-control" id="ovst_key" name="ovst_key" value="{{$getovst_key}}"> 
                         <input type="hidden" class="form-control" id="transDate" name="transDate" value="{{$collection5}}">
 
                         <input type="hidden" class="form-control" id="pttypeno" name="pttypeno" value="{{$cardid}}">

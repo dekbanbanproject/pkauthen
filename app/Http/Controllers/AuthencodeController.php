@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Authencode;
 use App\Models\Ovst;
 use App\Models\Patient;
+use App\Models\Vn_stat;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use Illuminate\support\Facades\Hash;
@@ -67,7 +68,7 @@ class AuthencodeController extends Controller
                 $hcode = '';
             } 
 
-            $contents = file('D:\Authen\nhso_token.txt', FILE_SKIP_EMPTY_LINES|FILE_IGNORE_NEW_LINES);
+            $contents = file('E:\UCAuthenticationMX\nhso_token.txt', FILE_SKIP_EMPTY_LINES|FILE_IGNORE_NEW_LINES);
             foreach($contents as $line) {  
             }
             $chars = preg_split('//', $line, -1, PREG_SPLIT_NO_EMPTY);
@@ -122,18 +123,22 @@ class AuthencodeController extends Controller
                 $subinscl_name      = $value->subinscl_name;
                 // $subinscl           = $subinscl
             }
-        //   $getovst_key = Http::get('https://cloud4.hosxp.net/api/ovst_key?Action=get_ovst_key&hospcode="'.$hcode.'"&vn="'.$vn.'"&computer_name=abcde&app_name=AppName&fbclid=IwAR2SvX7NJIiW_cX2JYaTkfAduFqZAi1gVV7ftiffWPsi4M97pVbgmRBjgY8')->collect();    
+          $getovst_key = Http::get('https://cloud4.hosxp.net/api/ovst_key?Action=get_ovst_key&hospcode="'.$hcode.'"&vn="'.$vn.'"&computer_name=abcde&app_name=AppName&fbclid=IwAR2SvX7NJIiW_cX2JYaTkfAduFqZAi1gVV7ftiffWPsi4M97pVbgmRBjgY8')->collect();    
        
         //APi ovst_key IP SERVER
-        $getovst_key = Http::get('http://192.168.0.17/pkauthen/public/api/ovst_key')->collect();
-        // $hkey = $getovst_key['ovst_key'];$collection['pid']
-        $hkey = $collection['pid']; 
+        // $getovst_key = Http::get('http://192.168.0.17/pkauthen/public/api/ovst_key')->collect();
+       
+        // $hkey = $collection['pid']; 
         $outputcard = Arr::sort($getovst_key);
         // $outputcard = Arr::sort($getovst_key['ovst_key']);
         //  foreach ($outputcard as $values) { 
-            // $showovst_key = $values['result']; 
+        //     $showovst_key = $values['result']; 
         // }
-            // dd($result);
+        // foreach ($outputcard as $key => $value) {
+           
+        //     $ovst_key = $value->ovst_key; 
+        // }
+            // dd($outputcard);
 
         return view('authen',$data,[
             'collection1'  => $collection['pid'],
@@ -148,11 +153,10 @@ class AuthencodeController extends Controller
             'collection10' => $collection['correlationId'],
             'collection11' => $collection['checkDate'],
             'collection'   => $collection,
-            'hos_guid'     => $hos_guid,
-            'outputcard'   => $outputcard,
+            'hos_guid'     => $hos_guid, 
             'collection12' => $collection['hospMain']['hcode'],
             'collection13' => $collection['image'],
-            'outputcard'   => $outputcard['getovst_key'],
+            'getovst_key'   => $getovst_key['result']['ovst_key'],
             'get_spclty'   => $get_spclty,
             'maininscl'    => $maininscl,
             'cardid'       => $cardid,
@@ -260,7 +264,7 @@ class AuthencodeController extends Controller
         //    $contents = File::get('D:\Authen\nhso_token.txt');
         $ip = $req->ip();
         // $path = ($ip.'/PKAuthen'.'/public/'.'Authen/nhso_token.txt');
-        $contents = file('D:\Authen\nhso_token.txt', FILE_SKIP_EMPTY_LINES|FILE_IGNORE_NEW_LINES);  
+        $contents = file('E:\UCAuthenticationMX\nhso_token.txt', FILE_SKIP_EMPTY_LINES|FILE_IGNORE_NEW_LINES);  
         // $contents = file($path, FILE_SKIP_EMPTY_LINES|FILE_IGNORE_NEW_LINES);  
         
         foreach($contents as $line) { 
@@ -359,8 +363,21 @@ class AuthencodeController extends Controller
     public function check_sit(Request $req )
     {  
         $cid = $req->check_cid;
-        $token_ = $req->token;
-        // dd($token_);
+        // $token_ = $req->token;
+        $contents = file('E:\UCAuthenticationMX\nhso_token.txt', FILE_SKIP_EMPTY_LINES|FILE_IGNORE_NEW_LINES);  
+        
+        foreach($contents as $line) {  
+        }
+        $chars = preg_split('//', $line, -1, PREG_SPLIT_NO_EMPTY); 
+        $output = Arr::sort($chars,2);
+        $data['data17'] = $chars['17']; $data['data18'] = $chars['18']; $data['data19'] = $chars['19']; $data['data20'] = $chars['20'];
+        $data['data21'] = $chars['21']; $data['data22'] = $chars['22']; $data['data23'] = $chars['23']; $data['data24'] = $chars['24'];
+        $data['data25'] = $chars['25']; $data['data26'] = $chars['26']; $data['data27'] = $chars['27']; $data['data28'] = $chars['28'];
+        $data['data29'] = $chars['29']; $data['data30'] = $chars['30']; $data['data31'] = $chars['31']; $data['data32'] = $chars['32'];
+
+        $token_ = $chars['17'].''.$data['data18'].''.$data['data19'].''.$data['data20'].''.$data['data21'].''.$data['data22'].''.$data['data23'].''.$data['data24'].''.$data['data25'].''.$data['data26'].''.$data['data27']
+        .''.$data['data28'].''.$data['data29'].''.$data['data30'].''.$data['data31'].''.$data['data32'];
+        // dd($cid);
         // $client = new \SoapClient($wsdl, $options);
         $client = new SoapClient("http://ucws.nhso.go.th/ucwstokenp1/UCWSTokenP1?wsdl",
             array(
@@ -378,15 +395,15 @@ class AuthencodeController extends Controller
             )
         );         
         $result = $client->__soapCall('searchCurrentByPID',$params);
-        // $card = Arr::sort($result);
-        // dd($result);
+        $card = Arr::sort($result);
+        // dd($card);
         foreach ($result as $key => $value1) { 
             $count_select = $value1->count_select; 
             $data_status = $value1->ws_status_desc; 
         }
        
-        // dd($count_select);
-        if ($count_select == '0') {
+        // dd($result);
+        if ($count_select == 0) {
             $status            = '';
             $birthday          = '';
             $fname             = '';
@@ -534,10 +551,13 @@ class AuthencodeController extends Controller
         $hospmain = $req->hospmain;
         $oqueue = Ovst::max('oqueue');
         $maxoqueue = $oqueue+1;
+
+        $hn = $req->hn;
+        $hos_guid = $req->hos_guid;
         
             $add = new Ovst(); 
-            $add->hos_guid = $req->hos_guid;
-            $add->hn = $req->hn;
+            $add->hos_guid = $hos_guid;
+            $add->hn = $hn;
             $add->vn = $vn;
             $add->spclty = $req->spclty;
             $add->oqueue = $maxoqueue; 
@@ -554,6 +574,21 @@ class AuthencodeController extends Controller
             ->update([
                 'hometel'         => $tel 
             ]);
+
+            
+            $add2 = new Vn_stat(); 
+            $add2->hos_guid = $hos_guid;
+            $add2->hn = $hn;
+            $add2->vn = $vn;
+            $add2->cid = $pid;
+            // $add2->oqueue = $maxoqueue; 
+            $add2->vstdate = $date; 
+            // $add2->vsttime = $timesave; 
+            // $add2->ovst_key = $req->ovst_key;
+            // $add2->hcode = $req->pttype;
+            // $add2->pttypeno = $req->pttypeno;
+            $add2->hospmain = $hospmain; 
+            $add2->save();     
  
             // ออก Authen Code       
             // $authen = Http::post("http://localhost:8189/api/nhso-service/confirm-save/",
