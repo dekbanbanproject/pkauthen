@@ -44,8 +44,8 @@
                     <div class="card shadow-lg">
                         <div class="card-header text-center">
                             <img src="{{ asset('images/spsch.jpg') }}" alt="Image" class="img-thumbnail" width="600px" height="130px">
-                            <img src="{{ asset('images/dataaudit.jpg') }}" alt="Image" class="img-thumbnail " width="135px" height="135px">
-                            {{-- <img src="{{ asset('images/logo150.png') }}" alt="Image" class="img-thumbnail me-5" width="135px" height="135px"> --}}
+                            {{-- <img src="{{ asset('images/dataaudit.jpg') }}" alt="Image" class="img-thumbnail" width="135px" height="135px"> --}}
+                            <img src="{{ asset('images/logo150.png') }}" alt="Image" class="img-thumbnail me-5" width="135px" height="135px">
                          
                             <img class="ms-4" src="data:image/png;base64,{{ $collection13 }}" alt="">
                         </div>
