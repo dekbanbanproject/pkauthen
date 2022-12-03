@@ -20,87 +20,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link rel="stylesheet" href="{{asset('js/plugins/select2/css/select2.min.css')}}">
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Edu VIC WA NT Beginner', cursive;
-        }
-    
         body {
-            width: 100%;
-            height: 100vh;
-            background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)),
-                url(/pkclaim/public/sky16/images/bgPK00.jpg)no-repeat 50%; 
-            background-size: cover;
-            background-attachment: fixed;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             font-family: 'Nunito', sans-serif;
-        }
-    
-        .container {
-            position: relative;
-        }
-    
-        
-        &::hover {
-            background: aliceblue;
-            color: gray;
-            font-weight: 500;
-        }
-    
-        .circle1 {
-            position: absolute;
-            width: 290px;
-            height: 290px;
-            background: rgba(240, 248, 255, 0.1);
-            border-radius: 50%;
-            top: 70%;
-            left: 95%;
-            z-index: -1;
-            animation: float 2s 0.5s ease-in-out infinite;
-        }
-    
-        .circle2 {
-            position: absolute;
-            width: 190px;
-            height: 190px;
-            background: rgba(240, 248, 255, 0.1);
-            border-radius: 50%;
-            top: -15%;
-            right: 25%;
-            z-index: -1;
-            animation: float 2s ease-in-out infinite;
-        }
-    
-        .circle3 {
-            position: absolute;
-            width: 230px;
-            height: 230px;
-            background: rgba(240, 248, 255, 0.1);
-            border-radius: 50%;
-            top: 50%;
-            right: 95%;
-            z-index: -1;
-            animation: float 2s 0.7s ease-in-out infinite;
-        }
-    
-        @keyframes float {
-            0% {
-                transform: translateY(0);
-            }
-    
-            50% {
-                transform: translateY(-20px);
-            }
-    
-            100% {
-                transform: translateY(0);
-            }
         }
     </style>
 </head>
@@ -114,9 +36,6 @@
         </div>
     </div> --}}
     <div class="container">
-        <div class="circle1"> </div>
-        <div class="circle2"> </div>
-        <div class="circle3"> </div>
         <div class="flex justify-center">    
             <div class="row"> 
                 <div class="col"></div> 
@@ -329,26 +248,18 @@
                                 </div> 
                                 <div class="col-md-2 text-end">
                                     <div class="mb-3">
-                                        <label for="transDate" class="form-label">pttype no :</label>                           
+                                        <label for="transDate" class="form-label">แผนก :</label>                           
                                     </div>
                                 </div>
-                                <div class="col-md-2 ">
+                                <div class="col-md-4 ">
                                     <div class="mb-3">  
-                                        <label for="pttypeno" class="form-label" style="color: rgb(197, 8, 33)">{{ $cardid }}</label>
-                                        <input type="hidden" class="form-control" id="pttypeno" name="pttypeno" value="{{$cardid}}"> 
+                                        <select id="spclty" name="spclty" class="form-select form-select-lg" style="width: 100%"> 
+                                                @foreach ($get_spclty as $getspc)
+                                                    <option value="{{ $getspc->spclty }}"> {{ $getspc->name }} </option>
+                                                @endforeach
+                                        </select>
                                     </div>  
-                                </div>  
-                                <div class="col-md-1 text-end">
-                                    <div class="mb-3">
-                                        <label for="pttype" class="form-label">pttype :</label>                           
-                                    </div>
-                                </div>
-                                <div class="col-md-1">
-                                    <div class="mb-3"> 
-                                        <label for="pttype" class="form-label" style="color: rgb(197, 8, 33)">{{ $subinscl }}</label>
-                                        <input type="hidden" class="form-control" id="pttype" name="pttype" value="{{$subinscl}}">   
-                                    </div>
-                                </div>                                                                    
+                                </div>                                                                  
                             </div>
 
                             <div class="row mt-3">
@@ -365,13 +276,18 @@
                                 </div>  
                                 <div class="col-md-2 text-end">
                                     <div class="mb-3">
-                                        <label for="expire_date" class="form-label">วันที่หมดสิทธิย่อย :</label>                           
+                                        <label for="pttype" class="form-label">pttype :</label>                           
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="mb-3"> 
-                                        <label for="expire_date" class="form-label" style="color: rgb(197, 8, 33)">{{ $expire_date }}</label>
-                                        <input type="hidden" class="form-control" id="expire_date" name="expire_date" value="{{$expire_date}}">   
+                                        <label for="pttype" class="form-label" style="color: rgb(197, 8, 33)">{{ $subinscl }}</label>
+                                        <input type="hidden" class="form-control" id="pttype" name="pttype" value="{{$subinscl}}">  
+                                        {{-- <select id="spclty" name="spclty" class="form-select form-select-lg" style="width: 100%"> 
+                                                @foreach ($get_spclty as $getspc)
+                                                    <option value="{{ $getspc->spclty }}"> {{ $getspc->name }} </option>
+                                                @endforeach
+                                        </select> --}}
                                     </div>
                                 </div>                                                     
                             </div>
@@ -394,17 +310,14 @@
                                 </div>   
                                 <div class="col-md-2 text-end">
                                     <div class="mb-3">
-                                        <label for="checkDate" class="form-label">แผนก :</label>                           
+                                        <label for="checkDate" class="form-label">pttype no :</label>                           
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="mb-3">  
-                                        
-                                        <select id="spclty" name="spclty" class="form-select form-select-lg" style="width: 100%"> 
-                                            @foreach ($get_spclty as $getspc)
-                                                <option value="{{ $getspc->spclty }}"> {{ $getspc->name }} </option>
-                                            @endforeach
-                                    </select>
+                                        {{-- <label for="checkDate" class="form-label" style="color: rgb(197, 8, 33)">{{ $collection11 }}</label> --}}
+                                        <label for="pttypeno" class="form-label" style="color: rgb(197, 8, 33)">{{ $cardid }}</label>
+                                        <input type="hidden" class="form-control" id="pttypeno" name="pttypeno" value="{{$cardid}}">  
                                     </div>
                                 </div>                                                                            
                             </div>
@@ -418,12 +331,15 @@
                         <input type="hidden" class="form-control" id="checkDate" value="{{ $collection11 }}">
 
                         @if ($collection12 == '')
-                        {{-- <input type="text" class="form-control" id="hcode" name="hcode" > --}}
+                        {{-- <input type="text" class="form-control" id="hospmain" name="hospmain" > --}}
                         @else
-                            {{-- <label for="hcode" class="form-label" style="color: rgb(197, 8, 33)">{{ $collection12 }}</label> --}}
-                            <input type="hidden" class="form-control" id="hcode" name="hcode" value="{{$collection12}}">
+                            {{-- <label for="hospmain" class="form-label" style="color: rgb(197, 8, 33)">{{ $collection12 }}</label> --}}
+                            <input type="hidden" class="form-control" id="hospmain" name="hospmain" value="{{$collection12}}">
                         @endif 
-                         
+                        
+                                           
+                        <input type="text" class="form-control" id="expire_date" name="expire_date" value="{{$expire_date}}"> 
+                        
                         <div class="card-footer">
                             <div class="col-md-12 text-end">
                                 <div class="form-group">
@@ -494,54 +410,50 @@
                     });
                 });
                
-                    $('#authencodevisit').click(function() {
-                    var pid = $('#pid').val();
-                    var hn = $('#hn').val();
-                    var hcode = $('#hcode').val();
-                    var hos_guid = $('#hos_guid').val();                
-                    var claimType = $('#claimType').val();
-                    var correlationId = $('#correlationId').val();
-                    var ovst_key = $('#ovst_key').val(); 
-                    var mobile = $('#mobile').val(); 
-                    var spclty = $('#spclty').val(); 
-                    var pttype = $('#pttype').val(); 
-                    var pttypeno = $('#pttypeno').val(); 
-
-                    var expire_date = $('#expire_date').val();
-                    var hmain = $('#hmain').val();
-                    var hsub = $('#hsub').val();
-                    // alert(hsub);
-                    $.ajax({
-                        url: "{{ route('a.authen_save') }}",
-                        type: "POST",
-                        dataType: 'json',
-                        data: {
-                            pid,hn,hcode,hos_guid,spclty,pttype,pttypeno,expire_date,hmain,hsub,
-                            claimType,correlationId,ovst_key,mobile
-                        },
-                        success: function(data) {
-                            if (data.status == 200) {
-                                Swal.fire({
-                                    title: 'ออก Authen Code + Visit สำเร็จ',
-                                    text: "You Get Authen Code success",
-                                    icon: 'success',
-                                    showCancelButton: false,
-                                    confirmButtonColor: '#06D177',
-                                    confirmButtonText: 'เรียบร้อย'
-                                }).then((result) => {
-                                    if (result
-                                        .isConfirmed) {
-                                        console.log(
-                                            data);
-                                        window.location="{{url('/')}}"; 
-                                        // window.location.reload();
-                                    }
-                                })
-                            } else {
-                            }
-                        },
-                    });
+                $('#authencodevisit').click(function() {
+                var pid = $('#pid').val();
+                var hn = $('#hn').val();
+                var hospmain = $('#hospmain').val();
+                var hos_guid = $('#hos_guid').val();                
+                var claimType = $('#claimType').val();
+                var correlationId = $('#correlationId').val();
+                var ovst_key = $('#ovst_key').val(); 
+                var mobile = $('#mobile').val(); 
+                var spclty = $('#spclty').val(); 
+                var pttype = $('#pttype').val(); 
+                var pttypeno = $('#pttypeno').val(); 
+                 
+                $.ajax({
+                    url: "{{ route('a.authen_save') }}",
+                    type: "POST",
+                    dataType: 'json',
+                    data: {
+                        pid,hn,hospmain,hos_guid,spclty,pttype,pttypeno,
+                        claimType,correlationId,ovst_key,mobile
+                    },
+                    success: function(data) {
+                        if (data.status == 200) {
+                            Swal.fire({
+                                title: 'ออก Authen Code + Visit สำเร็จ',
+                                text: "You Get Authen Code success",
+                                icon: 'success',
+                                showCancelButton: false,
+                                confirmButtonColor: '#06D177',
+                                confirmButtonText: 'เรียบร้อย'
+                            }).then((result) => {
+                                if (result
+                                    .isConfirmed) {
+                                    console.log(
+                                        data);
+                                    window.location="{{url('/')}}"; 
+                                    // window.location.reload();
+                                }
+                            })
+                        } else {
+                        }
+                    },
                 });
+            });
             });
            
     </script>

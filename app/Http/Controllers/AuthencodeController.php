@@ -139,7 +139,11 @@ class AuthencodeController extends Controller
            
         //     $ovst_key = $value->ovst_key; 
         // }
-            // dd($outputcard);
+        $strY = date('Y', strtotime($expdate)); 
+        $strM = date('m', strtotime($expdate)); 
+        $strD = date('d', strtotime($expdate)); 
+        $expire_date = $strY.'-'.$strM.'-'.$strD;
+            // dd($dateall);
 
         return view('authen',$data,[
             'collection1'  => $collection['pid'],
@@ -157,11 +161,16 @@ class AuthencodeController extends Controller
             'hos_guid'     => $hos_guid, 
             'collection12' => $collection['hospMain']['hcode'],
             'collection13' => $collection['image'],
-            'getovst_key'   => $getovst_key['result']['ovst_key'],
+            'getovst_key'  => $getovst_key['result']['ovst_key'],
             'get_spclty'   => $get_spclty,
             'maininscl'    => $maininscl,
             'cardid'       => $cardid,
-            'subinscl'     => $subinscl
+            'subinscl'     => $subinscl,
+            'hsub'         => $hsub,
+            'hmain'        => $hmain,
+            'person_id'    => $person_id,
+            'expdate'      => $expdate,
+            'expire_date'      => $expire_date
         ]);
    
     }
@@ -252,43 +261,19 @@ class AuthencodeController extends Controller
        $maininscl_main    = '';
        $maininscl_name    = '';
        $expdate           = '';
-
-        // str_pad(string , length , pad_string , pad_type)
-        // string คือ สตริงที่ต้องการเติมคำ
-        // length คือ ความยาวของสตริงที่ต้องการ
-        // pad_string คือ ตัวอักษรหรือคำที่ต้องการเติม
-        // pad_type คือ รูปแบบการเติม ค่าที่เป็นไปได้คือ
-        // STR_PAD_BOTH - เติมทั้งสองข้าง ถ้าไม่ลงตัวข้างขวาจะถูกเติมมากกว่า
-        // STR_PAD_LEFT - เติมด้านซ้าย
-        // STR_PAD_RIGHT - เติมด้านขวา (default)
-     
-        //    $contents = File::get('D:\Authen\nhso_token.txt');
+ 
         $ip = $req->ip();
         // $path = ($ip.'/PKAuthen'.'/public/'.'Authen/nhso_token.txt');
         $contents = file('E:\UCAuthenticationMX\nhso_token.txt', FILE_SKIP_EMPTY_LINES|FILE_IGNORE_NEW_LINES);  
         // $contents = file($path, FILE_SKIP_EMPTY_LINES|FILE_IGNORE_NEW_LINES);  
         
-        foreach($contents as $line) { 
-            // echo str_pad($count, 2, 0, STR_PAD_LEFT).". ".$line;
-            // echo $line;
+        foreach($contents as $line) {  
         }
-
-        // $mani = str_pad($line, 5); 
-        // echo $mani . "#" . "\n";
-       
-        // $a="3451000002897#";
-        // $count_a = strlen($a);
-        // echo $count_a;
-        // echo str_pad($count_a, 15, 0, STR_PAD_LEFT);
-        // echo "<br>";
+ 
         $chars = preg_split('//', $line, -1, PREG_SPLIT_NO_EMPTY);
-        // print_r($chars);
-        // echo "<br>";
-        // $data['output'] = Arr::sort($chars,2);
+        
         $output = Arr::sort($chars,2);
-        // dd($output,$chars['17']);
-        // dd($data['output']);
-      
+        
         $data['data17'] = $chars['17']; $data['data18'] = $chars['18']; $data['data19'] = $chars['19']; $data['data20'] = $chars['20'];
         $data['data21'] = $chars['21']; $data['data22'] = $chars['22']; $data['data23'] = $chars['23']; $data['data24'] = $chars['24'];
         $data['data25'] = $chars['25']; $data['data26'] = $chars['26']; $data['data27'] = $chars['27']; $data['data28'] = $chars['28'];
@@ -296,52 +281,8 @@ class AuthencodeController extends Controller
 
         $data['datatotal'] = $chars['17'].''.$data['data18'].''.$data['data19'].''.$data['data20'].''.$data['data21'].''.$data['data22'].''.$data['data23'].''.$data['data24'].''.$data['data25'].''.$data['data26'].''.$data['data27']
         .''.$data['data28'].''.$data['data29'].''.$data['data30'].''.$data['data31'].''.$data['data32'];
-
-        // dd($datatotal);
-        // echo "function:".str_pad($line,14,".",STR_PAD_RIGHT);  
-        // echo "<br>";
-
-        // if(strlen($line) > 15){
-        //     $line = mb_substr($line, 0, 15).'...';
-        //     }
-        //     echo $line;
-        //     echo "<br>";
-
-      
-        // for($i = 1;$i <$count_a;$i++)
-        // {
-        //     echo $line[$i];
-        //     echo "<br>";
-        // }
-        // $ar = array();
-        // for($i = 0;$i < strlen($line); $i++)
-        // {
-        //     echo array_push($ar, substr($line,$i,1));
-        // }
-        // echo str_pad($mani,15,".");  
-
-        // echo str_pad("line", 11, "pp", STR_PAD_BOTH )."\n";
-        // echo str_pad($line, 20, "-=", STR_PAD_LEFT)."\n";
-        // echo str_pad($line,  15, "*"). "\n"; 
-        // echo str_pad($line,5,"$",STR_PAD_LEFT);
-        // $myFile = new SplFileObject('D:\Authen\nhso_token.txt');
-        // while (!$myFile->eof()) {
-        //     echo $myFile->fgets() . PHP_EOL;
-        // }
-
-        // $file_handle = fopen('D:\Authen\nhso_token.txt', 'r'); 
-        // function get_all_lines($file_handle) { 
-        //     while (!feof($file_handle)) {
-        //         yield fgets($file_handle);
-        //     }
-        // }        
-        // $count = 0;        
-        // foreach (get_all_lines($file_handle) as $line) {
-        //     $count += 1;
-        //     echo $count.". ".$line;
-        // }        
-        // fclose($file_handle);
-        
+ 
+   
         // dd($line);
        return view('authen_cid',$data,
         [
@@ -363,6 +304,26 @@ class AuthencodeController extends Controller
 
     public function check_sit(Request $req )
     {  
+        $collection = Http::get('http://localhost:8189/api/smartcard/read?readImageFlag=true')->collect();
+        $year = substr(date("Y"),2) +43;
+        $mounts = date('m');
+        $day = date('d');
+        $time = date("His"); 
+        // $hcode = '10978';
+        $vn = $year.''.$mounts.''.$day.''.$time;
+       //  $getpatient =  DB::connection('mysql')->select('select cid,hometel from patient limit 2');
+        $getvn_stat =  DB::connection('mysql')->select('select * from vn_stat limit 2');
+        $get_ovst =  DB::connection('mysql')->select('select * from ovst limit 2');
+        $get_opdscreen =  DB::connection('mysql')->select('select * from opdscreen limit 2');
+        $get_ovst_seq =  DB::connection('mysql')->select('select * from ovst_seq limit 2');        
+        $get_spclty =  DB::connection('mysql')->select('select * from spclty');
+        ///// เจน  hos_guid  จาก Hosxp
+        $data_key = DB::connection('mysql')->select('SELECT uuid() as keygen');  
+        $output4 = Arr::sort($data_key); 
+        foreach ($output4 as $key => $value) { 
+            $hos_guid = $value->keygen; 
+        }
+
         $cid = $req->check_cid;
         // $token_ = $req->token;
         $contents = file('E:\UCAuthenticationMX\nhso_token.txt', FILE_SKIP_EMPTY_LINES|FILE_IGNORE_NEW_LINES);  
@@ -423,6 +384,8 @@ class AuthencodeController extends Controller
             $person_id         = '';
             $subinscl          = '';
             $subinscl_name     = '';
+            $cid               = '';
+            $cardid            = '';
         } else {
             foreach ($result as $key => $value) {
                 $status            = $value->status;
@@ -444,15 +407,37 @@ class AuthencodeController extends Controller
                 $person_id          = $value->person_id; 
                 $subinscl           = $value->subinscl; 
                 $subinscl_name      = $value->subinscl_name; 
-    
+                $cid                = $cid;
+                $cardid            = $value->cardid;
             }
         }
         
-       
+        $strY = date('Y', strtotime($expdate)); 
+        $strM = date('m', strtotime($expdate)); 
+        $strD = date('d', strtotime($expdate)); 
+        $expire_date = $strY.'-'.$strM.'-'.$strD;
         // dd($fname);
         $ip = $req->ip();
+        $datapatient = DB::table('patient')->where('cid','=',$collection['pid'])->first();
+            if ($datapatient->hometel != null) {
+                $cid = $datapatient->hometel;
+            } else {
+                $cid = '';
+            }   
+            if ($datapatient->hn != null) {
+                $hn = $datapatient->hn;
+            } else {
+                $hn = '';
+            }  
+            if ($datapatient->hcode != null) {
+                $hcode = $datapatient->hcode;
+            } else {
+                $hcode = '';
+            } 
        
         $terminals = Http::get('http://localhost:8189/api/smartcard/terminals')->collect(); 
+        $getovst_key = Http::get('https://cloud4.hosxp.net/api/ovst_key?Action=get_ovst_key&hospcode="'.$hcode.'"&vn="'.$vn.'"&computer_name=abcde&app_name=AppName&fbclid=IwAR2SvX7NJIiW_cX2JYaTkfAduFqZAi1gVV7ftiffWPsi4M97pVbgmRBjgY8')->collect();    
+
        
         // $collection = Http::get('http://localhost:8189/api/smartcard/read')->collect();
         $data['patient'] =  DB::connection('mysql')->select('select cid,hometel from patient limit 10');
@@ -534,7 +519,15 @@ class AuthencodeController extends Controller
         'collection9' => $collection['checkDate'],
         'collection10' => $collection['correlationId'],
         'collection11' => $collection['checkDate'],
-        'collection' => $collection
+        'collection12' => $collection['hospMain']['hcode'],
+        // 'collection13' => $collection['image'],
+        'getovst_key'  => $getovst_key['result']['ovst_key'],
+        'collection'   => $collection,
+        'hos_guid'     => $hos_guid, 
+        'cid'          => $cid,
+        'cardid'       => $cardid,
+        'expire_date'  => $expire_date,
+        'get_spclty'   => $get_spclty
        ]);  
     }
 
@@ -549,27 +542,33 @@ class AuthencodeController extends Controller
         $vn = $year.''.$mounts.''.$day.''.$time;
         $pid = $req->pid;
         $tel = $req->mobile;
-        $hospmain = $req->hospmain;
+        $hcode = $req->hcode;
+        $hospmain = $req->hmain;
+        $hospsub = $req->hsub;
         $oqueue = Ovst::max('oqueue');
         $maxoqueue = $oqueue+1;
 
         $hn = $req->hn;
         $hos_guid = $req->hos_guid;
         $pttype = $req->pttype;
+        $pttypeno = $req->pttypeno;
+        $expire_date = $req->expire_date;
 
             $add = new Ovst(); 
             $add->hos_guid = $hos_guid;
-            $add->hn = $hn;
-            $add->vn = $vn;
-            $add->spclty = $req->spclty;
-            $add->oqueue = $maxoqueue; 
-            $add->vstdate = $date; 
-            $add->vsttime = $timesave; 
+            $add->hn       = $hn;
+            $add->vn       = $vn;
+            $add->spclty   = $req->spclty;
+            $add->oqueue   = $maxoqueue; 
+            $add->vstdate  = $date; 
+            $add->vsttime  = $timesave; 
             $add->ovst_key = $req->ovst_key;
-            $add->pttype = $pttype;
-            $add->pttypeno = $req->pttypeno;
-            $add->hospmain = $hospmain; 
-            $add->staff = 'KIOS'; 
+            $add->pttype   = $pttype;
+            $add->pttypeno = $pttypeno;
+            $add->hospmain = $hospmain;
+            $add->hospsub  = $hospsub;
+            $add->hcode    = $hcode;
+            $add->staff    = 'KIOS'; 
             $add->save();     
 
             Patient::where('cid', $pid)
@@ -579,22 +578,25 @@ class AuthencodeController extends Controller
 
             
             $add2 = new Vn_stat(); 
-            $add2->hos_guid = $hos_guid;
-            $add2->hn = $hn;
-            $add2->vn = $vn;
-            $add2->cid = $pid;
-            // $add2->oqueue = $maxoqueue; 
-            $add2->vstdate = $date; 
-            // $add2->vsttime = $timesave; 
-            // $add2->ovst_key = $req->ovst_key;
-            // $add2->hcode = $req->pttype;
-            // $add2->pttypeno = $req->pttypeno;
-            $add2->hospmain = $hospmain; 
+            $add2->hos_guid      = $hos_guid;
+            $add2->hn            = $hn;
+            $add2->vn            = $vn;
+            $add2->cid           = $pid; 
+            $add2->vstdate       = $date;  
+            $add2->hospmain      = $hospmain; 
+            $add2->hospsub       = $hospsub;
+            $add2->pttypeno      = $pttypeno;
+            $add2->pttype_expire = $expire_date;
+            $add2->pttype   = $pttype;
             $add2->save(); 
             
             $add3 = new Visit_pttype();
-            $add3->vn = $vn;
-            $add3->pttype = $pttype;
+            $add3->vn           = $vn;
+            $add3->pttype       = $pttype;
+            $add3->hospmain     = $hospmain;
+            $add3->hospsub      = $hospsub;
+            $add3->pttypeno     = $pttypeno;
+            $add3->hos_guid      = $hos_guid;
             $add3->save(); 
 
 
