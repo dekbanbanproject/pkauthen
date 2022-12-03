@@ -8,6 +8,7 @@ use App\Models\Authencode;
 use App\Models\Ovst;
 use App\Models\Patient;
 use App\Models\Vn_stat;
+use App\Models\Visit_pttype;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use Illuminate\support\Facades\Hash;
@@ -554,7 +555,8 @@ class AuthencodeController extends Controller
 
         $hn = $req->hn;
         $hos_guid = $req->hos_guid;
-        
+        $pttype = $req->pttype;
+
             $add = new Ovst(); 
             $add->hos_guid = $hos_guid;
             $add->hn = $hn;
@@ -564,7 +566,7 @@ class AuthencodeController extends Controller
             $add->vstdate = $date; 
             $add->vsttime = $timesave; 
             $add->ovst_key = $req->ovst_key;
-            $add->pttype = $req->pttype;
+            $add->pttype = $pttype;
             $add->pttypeno = $req->pttypeno;
             $add->hospmain = $hospmain; 
             $add->staff = 'KIOS'; 
@@ -588,8 +590,14 @@ class AuthencodeController extends Controller
             // $add2->hcode = $req->pttype;
             // $add2->pttypeno = $req->pttypeno;
             $add2->hospmain = $hospmain; 
-            $add2->save();     
- 
+            $add2->save(); 
+            
+            $add3 = new Visit_pttype();
+            $add3->vn = $vn;
+            $add3->pttype = $pttype;
+            $add3->save(); 
+
+
             // ออก Authen Code       
             $authen = Http::post("http://localhost:8189/api/nhso-service/confirm-save/",
             [
