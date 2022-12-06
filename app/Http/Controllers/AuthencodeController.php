@@ -429,8 +429,7 @@ class AuthencodeController extends Controller
     
             }
         }
-        
-       
+               
         // dd($fname);
         $ip = $req->ip();
        
