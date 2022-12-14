@@ -37,8 +37,8 @@ class ApiController extends Controller
         $get_opdscreen =  DB::connection('mysql')->select('select * from opdscreen limit 2');
         $get_ovst_seq =  DB::connection('mysql')->select('select * from ovst_seq limit 2');
 
-        $getovst_key = Http::get('https://cloud4.hosxp.net/api/ovst_key?Action=get_ovst_key&hospcode="'.$hcode.'"&vn="'.$vn.'"&computer_name=abcde&app_name=AppName&fbclid=IwAR2SvX7NJIiW_cX2JYaTkfAduFqZAi1gVV7ftiffWPsi4M97pVbgmRBjgY8')->collect();
-       
+        // $getovst_key = Http::get('https://cloud4.hosxp.net/api/ovst_key?Action=get_ovst_key&hospcode="'.$hcode.'"&vn="'.$vn.'"&computer_name=abcde&app_name=AppName&fbclid=IwAR2SvX7NJIiW_cX2JYaTkfAduFqZAi1gVV7ftiffWPsi4M97pVbgmRBjgY8')->collect();
+        $getovst_key = Http::get('http://192.168.0.17/pkauthen/public/api/ovst_key')->collect();
         // เจน  hos_guid  จาก Hosxp
         $data_key = DB::connection('mysql')->select('SELECT uuid() as keygen'); 
         // $output = Arr::sort($data_key); 

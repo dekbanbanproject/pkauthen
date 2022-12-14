@@ -520,7 +520,7 @@ class AuthencodeController extends Controller
         'collection9' => $collection['checkDate'],
         'collection10' => $collection['correlationId'],
         'collection11' => $collection['checkDate'],
-        // 'collection12' => $collection['hospMain']['hcode'],
+        'collection12' => $collection['hospMain']['hcode'],
         // 'collection13' => $collection['image'],
         // 'getovst_key'  => $getovst_key['result']['ovst_key'],
         'collection'   => $collection,

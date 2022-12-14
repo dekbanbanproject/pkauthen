@@ -34,15 +34,15 @@
                 <div class="col"></div> 
                 <div class="col-md-8">&nbsp;&nbsp;
                     <div class="card shadow-lg">
-                        {{-- <div class="card-header text-center"> --}}
-                            {{-- <img src="{{ asset('images/spsch.jpg') }}" alt="Image" class="img-thumbnail" width="600px" height="130px"> --}}
+                        <div class="card-header text-center">
+                            <img src="{{ asset('images/spsch.jpg') }}" alt="Image" class="img-thumbnail" width="600px" height="130px">
                             {{-- <img src="{{ asset('images/dataaudit.jpg') }}" alt="Image" class="img-thumbnail" width="135px" height="135px"> --}}
-                            {{-- <img src="{{ asset('images/logo150.png') }}" alt="Image" class="img-thumbnail" width="135px" height="135px"> --}}
-                        {{-- </div> --}}
+                            <img src="{{ asset('images/logo150.png') }}" alt="Image" class="img-thumbnail" width="135px" height="135px">
+                        </div>
                         <div class="row"> 
                             <div class="col"></div> 
                             <div class="col-md-2">&nbsp;&nbsp; 
-                            <img src="{{ asset('images/dataaudit.jpg') }}" alt="Image" class="img-thumbnail shadow-lg mt-2" width="100px" height="100px"> 
+                            {{-- <img src="{{ asset('images/dataaudit.jpg') }}" alt="Image" class="img-thumbnail shadow-lg mt-2" width="100px" height="100px">  --}}
                             </div>  
                             {{-- <div class="col"></div> --}}
                         </div>

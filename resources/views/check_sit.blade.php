@@ -119,8 +119,8 @@
                     <div class="card shadow-lg"> 
                         <div class="card-header text-center">
                             <img src="{{ asset('images/spsch.jpg') }}" alt="Image" class="img-thumbnail" width="600px" height="130px">
-                            <img src="{{ asset('images/dataaudit.jpg') }}" alt="Image" class="img-thumbnail" width="135px" height="135px">
-                            {{-- <img src="{{ asset('images/logo150.png') }}" alt="Image" class="img-thumbnail" width="135px" height="135px"> --}}
+                            {{-- <img src="{{ asset('images/dataaudit.jpg') }}" alt="Image" class="img-thumbnail" width="135px" height="135px"> --}}
+                            <img src="{{ asset('images/logo150.png') }}" alt="Image" class="img-thumbnail" width="135px" height="135px">
                         </div>
                         <div class="card-body">
                             <form action="{{ route('authencode') }}" method="POST" id="insert_AuthencodeForm">
@@ -137,16 +137,16 @@
 
                             <input type="hidden" class="form-control" id="person_id" name="person_id" value="{{$person_id}}"> 
                         <input type="hidden" class="form-control" id="hos_guid" name="hos_guid" value="{{$hos_guid}}">  
-                        <input type="hidden" class="form-control" id="ovst_key" name="ovst_key" value="{{$getovst_key}}"> 
+                        {{-- <input type="hidden" class="form-control" id="ovst_key" name="ovst_key" value="{{$getovst_key}}">  --}}
                         <input type="hidden" class="form-control" id="transDate" name="transDate" value="{{$collection5}}">
                         <input type="hidden" class="form-control" id="checkDate" value="{{ $collection11 }}">
 
-                            @if ($collection12 == '')
+                            {{-- @if ($collection12 == '') --}}
                             {{-- <input type="text" class="form-control" id="hcode" name="hcode" > --}}
-                            @else
+                            {{-- @else --}}
                                 {{-- <label for="hcode" class="form-label" style="color: rgb(197, 8, 33)">{{ $collection12 }}</label> --}}
-                                <input type="hidden" class="form-control" id="hcode" name="hcode" value="{{$collection12}}">
-                            @endif 
+                                {{-- <input type="hidden" class="form-control" id="hcode" name="hcode" value="{{$collection12}}"> --}}
+                            {{-- @endif  --}}
                         
                             <div class="row mt-4">
                                 <div class="col-md-2 text-end">
@@ -156,7 +156,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="mb-3">
-                                        <label for="fname" class="form-label" style="color: rgb(197, 8, 33)">{{$cid}} </label>                     
+                                        <label for="fname" class="form-label" style="color: rgb(197, 8, 33)">{{$collection1}} </label>                     
                                     </div>
                                 </div> 
                                 <div class="col-md-2 text-end">
@@ -396,7 +396,7 @@
                                         @if ($cid == '')
                                             <input type="text" class="form-control" id="mobile" name="mobile" required>
                                         @else
-                                            <input type="text" class="form-control" id="mobile" name="mobile" value="{{$cid}}">
+                                            <input type="text" class="form-control" id="mobile" name="mobile" value="{{$hometel}}">
                                         @endif
                                         
                                     </div>
