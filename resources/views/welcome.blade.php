@@ -160,10 +160,10 @@
                               
                                     <br>  
                                     
-                                    <a href="{{url('authen_cid')}}" class="btn btn-warning shadow-lg">
+                                    {{-- <a href="{{url('authen_cid')}}" class="btn btn-warning shadow-lg">
                                       <i class="fa-regular fa-id-card me-2"></i>
                                           กรณีลืมบัตรประชาชน 
-                                        </a>
+                                        </a> --}}
                                     <a href="" class="btn btn-info shadow-lg">
                                           <i class="fa-solid fa-arrows-rotate me-2"></i>
                                             Refresh
