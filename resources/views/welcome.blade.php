@@ -184,41 +184,41 @@
             //     window.location.reload();
             // }, 5000);
 
-            $(document).ready(function () {
-                $('#insert_AuthencodeForm').on('submit',function(e){
-                  e.preventDefault();              
-                  var form = this;
-                  $.ajax({
-                    url:$(form).attr('action'),
-                    method:$(form).attr('method'),
-                    data:new FormData(form),
-                    processData:false,
-                    dataType:'json',
-                    contentType:false,
-                    beforeSend:function(){
-                      $(form).find('span.error-text').text('');
-                    },
-                    success:function(data){
-                      if (data.status == 0 ) {
+            // $(document).ready(function () {
+            //     $('#insert_AuthencodeForm').on('submit',function(e){
+            //       e.preventDefault();              
+            //       var form = this;
+            //       $.ajax({
+            //         url:$(form).attr('action'),
+            //         method:$(form).attr('method'),
+            //         data:new FormData(form),
+            //         processData:false,
+            //         dataType:'json',
+            //         contentType:false,
+            //         beforeSend:function(){
+            //           $(form).find('span.error-text').text('');
+            //         },
+            //         success:function(data){
+            //           if (data.status == 0 ) {
                         
-                      } else {          
-                        Swal.fire({
-                          title: 'ออก Authen Code สำเร็จ',
-                          text: "You Get Authen Code success",
-                          icon: 'success',
-                          showCancelButton: false,
-                          confirmButtonColor: '#06D177',
-                          // cancelButtonColor: '#d33',
-                          confirmButtonText: 'เรียบร้อย'
-                        }).then((result) => {
-                          if (result.isConfirmed) {         
-                            window.location.reload();  
-                          }
-                        })      
-                      }
-                    }
-                  });
-            });
+            //           } else {          
+            //             Swal.fire({
+            //               title: 'ออก Authen Code สำเร็จ',
+            //               text: "You Get Authen Code success",
+            //               icon: 'success',
+            //               showCancelButton: false,
+            //               confirmButtonColor: '#06D177',
+            //               // cancelButtonColor: '#d33',
+            //               confirmButtonText: 'เรียบร้อย'
+            //             }).then((result) => {
+            //               if (result.isConfirmed) {         
+            //                 window.location.reload();  
+            //               }
+            //             })      
+            //           }
+            //         }
+            //       });
+            // });
                 // $.ajaxSetup({
                 //     headers: {
                 //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -263,7 +263,7 @@
 
                 //     },
                 // });
-            });
+            // });
                      
     </script>
 </body>

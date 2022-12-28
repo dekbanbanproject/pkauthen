@@ -101,7 +101,7 @@ class AuthencodeController extends Controller
                 )
             );         
             $result = $client->__soapCall('searchCurrentByPID',$params);
-        //    dd($result);
+           dd($result);
   
             foreach ($result as $key => $value) {
                 // $status            = $value->status;
@@ -130,7 +130,7 @@ class AuthencodeController extends Controller
                 $person_id                = $value->person_id; 
                 $startdate_sss            = $value->startdate_sss; 
                 $subinscl                 = $value->subinscl;
-                $subinscl_name            = $value->subinscl_name;
+                $subinscl_name            = $subinscl_name;
                 $ws_data_source           = $value->ws_data_source;
                 $ws_date_request          = $value->ws_date_request;
                 $ws_status                = $value->ws_status;
@@ -140,16 +140,27 @@ class AuthencodeController extends Controller
 
             }
 
-            // dd($fname);
-     
-        // $getovst_key = Http::get('http://192.168.0.17/pkauthen/public/api/ovst_key')->collect();
-        // $outputcard = Arr::sort($getovst_key);
- 
-        // $strY = date('Y', strtotime($expdate)); 
-        // $strM = date('m', strtotime($expdate)); 
-        // $strD = date('d', strtotime($expdate)); 
-        // $expire_date = $strY.'-'.$strM.'-'.$strD;
+            dd($fname);
+        //   $getovst_key = Http::get('https://cloud4.hosxp.net/api/ovst_key?Action=get_ovst_key&hospcode="'.$hcode.'"&vn="'.$vn.'"&computer_name=abcde&app_name=AppName&fbclid=IwAR2SvX7NJIiW_cX2JYaTkfAduFqZAi1gVV7ftiffWPsi4M97pVbgmRBjgY8')->collect();    
        
+        //APi ovst_key IP SERVER
+        $getovst_key = Http::get('http://192.168.0.17/pkauthen/public/api/ovst_key')->collect();
+        $outputcard = Arr::sort($getovst_key);
+
+        // $hkey = $collection['pid'];         
+        // $outputcard = Arr::sort($getovst_key['ovst_key']);
+        //  foreach ($outputcard as $values) { 
+        //     $showovst_key = $values['result']; 
+        // }
+        // foreach ($outputcard as $key => $value) {           
+        //     $ovst_key = $value->ovst_key; 
+        // }
+        $strY = date('Y', strtotime($expdate)); 
+        $strM = date('m', strtotime($expdate)); 
+        $strD = date('d', strtotime($expdate)); 
+        $expire_date = $strY.'-'.$strM.'-'.$strD;
+            // dd($dateall);
+
         return view('authen',$data,[
             'collection1'  => $collection['pid'],
             'collection2'  => $collection['fname'],
@@ -166,44 +177,41 @@ class AuthencodeController extends Controller
             'hos_guid'     => $hos_guid, 
             'collection12' => $collection['hospMain']['hcode'],
             'collection13' => $collection['image'],
-            // 'getovst_key'  => $getovst_key['result']['ovst_key'],
+            'getovst_key'  => $getovst_key['result']['ovst_key'],
             'get_spclty'   => $get_spclty,
             'maininscl'    => $maininscl,
-            // 'cardid'       => $cardid,
+            'cardid'       => $cardid,
             'subinscl'     => $subinscl,
-            // 'hsub'         => $hsub,
+            'hsub'         => $hsub,
             'hmain'        => $hmain,
             'person_id'    => $person_id,
-            // 'expdate'      => $expdate,
-            // 'expire_date'      => $expire_date
+            'expdate'      => $expdate,
+            'expire_date'      => $expire_date
         ]);
    
     }
-    public function authencode(Request $request)
+    public function authencode(Request $req)
     {
         // $authen = Http::post("http://localhost:8189/api/nhso-service/save-as-draft");
-        $cid = $request->person_id;
-        $tel = $request->mobile;  
-        $claimType = $request->claimType;        
-        $correlationId = $request->correlationId;
-        $hn = $request->hn;
-        $hcode = $request->hcode;
- 
+        $cid = $req->pid;
+        $tel = $req->mobile;
+        // $ip = $request->ip();        
         $authen = Http::post("http://localhost:8189/api/nhso-service/confirm-save",
         [
             'pid'              =>  $cid,
-            'claimType'        =>  $claimType,
+            'claimType'        =>  $req->claimType,
             'mobile'           =>  $tel,
-            'correlationId'    =>  $correlationId,
-            // 'hcode'            =>  $hcode,
-            'hn'               =>  $hn
+            'correlationId'    =>  $req->correlationId,
+            'hcode'            =>  $req->hcode
         ]);
+
         
         Patient::where('cid', $cid)
             ->update([
                 'hometel'         => $tel 
             ]);
-  
+ 
+        // return $authen->json();
         return response()->json([
             'status'     => '200'
         ]);

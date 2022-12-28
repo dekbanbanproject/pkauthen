@@ -216,9 +216,9 @@
                             <?php
                             $datapatient = DB::table('patient')->where('cid','=',$collection1)->first();
                             if ($datapatient->hometel != null) {
-                                $cid = $datapatient->hometel;
+                                $tel = $datapatient->hometel;
                             } else {
-                                $cid = '';
+                                $tel = '';
                             }   
                             if ($datapatient->hn != null) {
                                 $hn = $datapatient->hn;
@@ -252,8 +252,8 @@
                                 </div>
                                 <div class="col-md-4 ">
                                     <div class="mb-3"> 
-                                        <input class="form-check-input me-3" type="radio" name="claimType" id="claimType" value="PG0060001" checked> 
-                                            <label class="form-check-label" for="claimType">
+                                        <input class="form-check-input me-3" type="radio" name="claimType" id="claimType1" value="PG0060001" checked> 
+                                            <label class="form-check-label" for="claimType1">
                                                 เข้ารับบริการรักษาทั่วไป (OPD/ IPD/ PP) 
                                             </label> 
                                     </div>
@@ -274,6 +274,23 @@
                                     </div>
                                 </div>                                                                   
                             </div>
+
+                            <div class="row">
+                                <div class="col-md-2 text-end">
+                                    <div class="mb-3"> 
+                                        <label for="claimType" class="form-label"> </label>   
+                                    </div>
+                                </div>
+                                <div class="col-md-9 ">
+                                    <div class="mb-3"> 
+                                        <input class="form-check-input me-3" type="radio" name="claimType" id="claimType2" value="PG0110001"> 
+                                            <label class="form-check-label" for="claimType2">
+                                                Self Isolation 
+                                            </label>                                
+                                    </div>
+                                </div> 
+                            </div>
+
                             <div class="row">
                                 <div class="col-md-2 text-end">
                                     <div class="mb-3"> 
@@ -282,8 +299,8 @@
                                 </div>
                                 <div class="col-md-4 ">
                                     <div class="mb-3"> 
-                                        <input class="form-check-input me-3" type="radio" name="claimType" id="claimType2" value="PG0120001"> 
-                                            <label class="form-check-label" for="claimType2">
+                                        <input class="form-check-input me-3" type="radio" name="claimType" id="claimType3" value="PG0120001"> 
+                                            <label class="form-check-label" for="claimType3">
                                                 UCEP PLUS (ผู้ป่วยกลุ่มอาการสีเหลืองและสีแดง) 
                                             </label>                                
                                     </div>
@@ -306,8 +323,8 @@
                                 </div>
                                 <div class="col-md-1 ">
                                     <div class="mb-3"> 
-                                        <label for="hsub" class="form-label" style="color: rgb(197, 8, 33)">{{ $hsub }}</label>
-                                        <input type="hidden" class="form-control" id="hsub" name="hsub" value="{{$hsub}}"> 
+                                        {{-- <label for="hsub" class="form-label" style="color: rgb(197, 8, 33)">{{ $hsub }}</label>
+                                        <input type="hidden" class="form-control" id="hsub" name="hsub" value="{{$hsub}}">  --}}
                                     </div>
                                 </div>                                                                        
                             </div>
@@ -321,8 +338,8 @@
                                 </div>
                                 <div class="col-md-4 ">
                                     <div class="mb-3"> 
-                                        <input class="form-check-input me-3" type="radio" name="claimType" id="claimType3" value="PG0130001"> 
-                                            <label class="form-check-label" for="claimType3">
+                                        <input class="form-check-input me-3" type="radio" name="claimType" id="claimType4" value="PG0130001"> 
+                                            <label class="form-check-label" for="claimType4">
                                                 บริการฟอกเลือดด้วยเครื่องไตเทียม (HD) 
                                             </label>                                
                                     </div>
@@ -334,8 +351,8 @@
                                 </div>
                                 <div class="col-md-2 ">
                                     <div class="mb-3">  
-                                        <label for="pttypeno" class="form-label" style="color: rgb(197, 8, 33)">{{ $cardid }}</label>
-                                        <input type="hidden" class="form-control" id="pttypeno" name="pttypeno" value="{{$cardid}}"> 
+                                        <label for="pttypeno" class="form-label" style="color: rgb(197, 8, 33)">{{ $person_id }}</label>
+                                        <input type="hidden" class="form-control" id="pttypeno" name="pttypeno" value="{{$person_id}}"> 
                                     </div>  
                                 </div>  
                                 <div class="col-md-1 text-end">
@@ -350,6 +367,8 @@
                                     </div>
                                 </div>                                                                    
                             </div>
+
+                           
 
                             <div class="row mt-3">
                                 <div class="col-md-2 text-end">
@@ -370,8 +389,8 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="mb-3"> 
-                                        <label for="expire_date" class="form-label" style="color: rgb(197, 8, 33)">{{ $expire_date }}</label>
-                                        <input type="hidden" class="form-control" id="expire_date" name="expire_date" value="{{$expire_date}}">   
+                                        {{-- <label for="expire_date" class="form-label" style="color: rgb(197, 8, 33)">{{ $expire_date }}</label> --}}
+                                        {{-- <input type="hidden" class="form-control" id="expire_date" name="expire_date" value="{{$expire_date}}">    --}}
                                     </div>
                                 </div>                                                     
                             </div>
@@ -384,27 +403,26 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="mb-3">  
-                                        @if ($cid == '')
+                                        @if ($tel == '')
                                             <input type="text" class="form-control" id="mobile" name="mobile">
                                         @else
-                                            <input type="text" class="form-control" id="mobile" name="mobile" value="{{$cid}}">
+                                            <input type="text" class="form-control" id="mobile" name="mobile" value="{{$tel}}">
                                         @endif
                                         
                                     </div>
                                 </div>   
                                 <div class="col-md-2 text-end">
                                     <div class="mb-3">
-                                        <label for="checkDate" class="form-label">แผนก :</label>                           
+                                        {{-- <label for="checkDate" class="form-label">แผนก :</label>                            --}}
                                     </div>
                                 </div>
                                 <div class="col-md-4">
-                                    <div class="mb-3">  
-                                        
-                                        <select id="spclty" name="spclty" class="form-select form-select-lg" style="width: 100%"> 
+                                    <div class="mb-3"> 
+                                        {{-- <select id="spclty" name="spclty" class="form-select form-select-lg" style="width: 100%"> 
                                             @foreach ($get_spclty as $getspc)
                                                 <option value="{{ $getspc->spclty }}"> {{ $getspc->name }} </option>
                                             @endforeach
-                                    </select>
+                                        </select> --}}
                                     </div>
                                 </div>                                                                            
                             </div>
@@ -412,8 +430,8 @@
                         </div>
                         <br> 
                         <input type="hidden" class="form-control" id="person_id" name="person_id" value="{{$person_id}}"> 
-                        <input type="hidden" class="form-control" id="hos_guid" name="hos_guid" value="{{$hos_guid}}">  
-                        <input type="hidden" class="form-control" id="ovst_key" name="ovst_key" value="{{$getovst_key}}"> 
+                        {{-- <input type="hidden" class="form-control" id="hos_guid" name="hos_guid" value="{{$hos_guid}}">   --}}
+                        {{-- <input type="hidden" class="form-control" id="ovst_key" name="ovst_key" value="{{$getovst_key}}">  --}}
                         <input type="hidden" class="form-control" id="transDate" name="transDate" value="{{$collection5}}">
                         <input type="hidden" class="form-control" id="checkDate" value="{{ $collection11 }}">
 
@@ -430,9 +448,12 @@
                                     <button type="submit" class="btn btn-primary shadow-lg me-2"><i class="fa-brands fa-medrt me-2"></i> 
                                         ออก Authen Code Only
                                     </button>
-                                    <button type="button" class="btn btn-success shadow-lg me-2" id="authencodevisit"><i class="fa-brands fa-medrt me-2"></i> 
+                                    {{-- <button type="button" class="btn btn-success shadow-lg me-2" id="authencodeOnly"><i class="fa-brands fa-medrt me-2"></i> 
+                                        ออก Authen Code 
+                                    </button> --}}
+                                    {{-- <button type="button" class="btn btn-success shadow-lg me-2" id="authencodevisit"><i class="fa-brands fa-medrt me-2"></i> 
                                         ออก Authen Code + Visit
-                                    </button>
+                                    </button> --}}
                                     <a href="{{url('/')}}" class="btn btn-danger shadow-lg"><i class="fa-solid fa-circle-arrow-left me-2"></i>ย้อนกลับ</a> 
                                 </div>
                             </div>
@@ -493,6 +514,9 @@
                         }
                     });
                 });
+
+
+               
                
                     $('#authencodevisit').click(function() {
                     var pid = $('#pid').val();
@@ -543,6 +567,62 @@
                     });
                 });
             });
+
+             // Uncheck #x
+       
+             function uncheck() {
+                    document.getElementById("claimType1").checked = false;
+                    document.getElementById("claimType2").checked = false;
+                }
+
+
+            $(document).on('click', '#authencodeOnly', function() {
+                var person_id = $('#person_id').val();
+                var mobile = $('#mobile').val();
+                var claimType_data1 = $('#claimType1').val();
+                var claimType_data2 = $('#claimType2').val();
+                var claimType_data3 = $('#claimType3').val();
+                var claimType_data4 = $('#claimType4').val();
+                var correlationId = $('#correlationId').val();
+                var hn = $('#hn').val();
+                var hcode = $('#hcode').val();
+
+                $('.sun').click(function () {
+                    $('#Sun').slideToggle("fast");
+                });
+
+                    $.ajax({
+                        url: "{{ route('a.authencode') }}",
+                        type: "POST",
+                        dataType: 'json',
+                        data: {
+                            person_id,mobile,claimType_data1,claimType_data2,claimType_data3
+                            ,claimType_data4,correlationId,hn,hcode                             
+                        },
+                        success: function(data) {
+                            if (data.status == 200) {
+                                Swal.fire({
+                                    title: 'ออก Authen Code สำเร็จ',
+                                    text: "You Get Authen Code success",
+                                    icon: 'success',
+                                    showCancelButton: false,
+                                    confirmButtonColor: '#06D177',
+                                    confirmButtonText: 'เรียบร้อย'
+                                }).then((result) => {
+                                    if (result
+                                        .isConfirmed) {
+                                        console.log(
+                                            data);
+                                        window.location="{{url('/')}}"; 
+                                        // window.location.reload();
+                                    }
+                                })
+                            } else {
+                            }
+                        },
+                    });
+ 
+                });
            
     </script>
 
